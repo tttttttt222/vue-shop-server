@@ -1,0 +1,23 @@
+CREATE TABLE `user_role_menu` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `role_id` bigint DEFAULT NULL,
+  `menu_id` bigint DEFAULT NULL,
+  `createtime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updatetime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('1', '1', '1', '2020-02-16 11:20:59', '2020-02-16 11:21:01');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('2', '1', '2', '2020-02-16 11:21:31', '2020-02-16 11:21:31');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('3', '1', '3', '2020-02-16 11:21:32', '2020-02-16 11:21:32');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('4', '1', '4', '2020-02-16 11:21:33', '2020-02-16 11:21:33');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('5', '1', '5', '2020-02-16 11:21:34', '2020-02-16 11:21:34');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('6', '1', '6', '2020-02-16 11:21:35', '2020-02-16 11:21:35');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('7', '1', '7', '2020-02-16 11:21:37', '2020-02-16 11:21:37');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('8', '1', '8', '2020-02-16 11:21:38', '2020-02-16 11:21:38');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('9', '1', '9', '2020-02-16 11:21:39', '2020-02-16 11:21:39');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('10', '1', '10', '2020-02-16 11:21:42', '2020-02-16 11:21:42');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('11', '1', '11', '2020-02-16 11:21:42', '2020-02-16 11:21:42');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('12', '1', '12', '2020-02-16 11:21:43', '2020-02-16 11:21:43');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('13', '1', '13', '2020-02-16 11:21:45', '2020-02-16 11:21:45');
+INSERT INTO `vueshop`.`user_role_menu` (`id`, `role_id`, `menu_id`, `createtime`, `updatetime`) VALUES ('14', '1', '14', '2020-02-16 11:21:47', '2020-02-16 11:21:47');

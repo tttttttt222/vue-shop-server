@@ -1,0 +1,12 @@
+CREATE TABLE `user_role` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(255) DEFAULT NULL,
+  `role_desc` varchar(255) DEFAULT NULL,
+  `status` tinyint DEFAULT NULL,
+  `createtime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updatetime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `vueshop`.`user_role` (`id`, `role_name`, `role_desc`, `status`, `createtime`, `updatetime`) VALUES ('1', '超级管理员', '超级管理员', '1', '2020-02-16 11:17:10', '2020-02-16 11:17:12');
+INSERT INTO `vueshop`.`user_role` (`id`, `role_name`, `role_desc`, `status`, `createtime`, `updatetime`) VALUES ('2', '测试角色', '测试角色', '1', '2020-02-16 11:22:11', '2020-02-16 11:22:14');

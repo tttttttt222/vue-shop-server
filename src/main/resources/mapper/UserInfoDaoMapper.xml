@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueshop.manager.dao.mapper.UserInfoDao">
+
+    <resultMap id="UserInfoMap" type="com.vueshop.manager.dao.model.UserInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="rid" property="rid" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="allColumn">
+       id,
+       rid,
+       username,
+       mobile,
+       email,
+       token,
+       password,
+       status,
+       createtime,
+       updatetime
+    </sql>
+
+
+    <select id="queryUserInfo" resultMap="UserInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM user_info
+        WHERE username = #{username}
+        AND status = 1
+    </select>
+
+    <select id="queryUserPage" resultMap="UserInfoMap">
+        SELECT
+        ur.role_name,
+        ui.id,
+        ui.rid,
+        ui.username,
+        ui.mobile,
+        ui.email,
+        ui.token,
+        ui.password,
+        ui.status,
+        ui.createtime,
+        ui.updatetime
+        FROM user_info ui
+        LEFT JOIN user_role ur
+        ON ui.rid = ur.id
+        <where>
+            <if test=" query.username != null and query.username != ''">
+                AND ui.username =#{query.username}
+            </if>
+        </where>
+        ORDER BY ui.id ASC
+        LIMIT #{pageNo} , #{pageSize}
+    </select>
+
+    <select id="queryUserPageCount" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM user_info
+        <where>
+            <if test=" query.username != null and query.username != ''">
+                AND username =#{query.username}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateUserInfo" parameterType="com.vueshop.manager.controller.http.request.UserInfoRequest">
+        UPDATE user_info
+        <set>
+            <if test=" userInfo.rid != null">
+                rid =#{userInfo.rid},
+            </if>
+            <if test=" userInfo.mobile != null and userInfo.mobile != ''">
+                mobile =#{userInfo.mobile},
+            </if>
+            <if test=" userInfo.email != null and userInfo.email != ''">
+                email =#{userInfo.email},
+            </if>
+            <if test=" userInfo.password != null and userInfo.password != ''">
+                password =#{userInfo.password},
+            </if>
+            <if test=" userInfo.status != null">
+                status =#{userInfo.status},
+            </if>
+            update_time = now()
+        </set>
+        WHERE id =#{userInfo.id}
+    </update>
+
+
+</mapper>

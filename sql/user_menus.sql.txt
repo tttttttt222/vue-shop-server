@@ -1,0 +1,26 @@
+CREATE TABLE `user_menus` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `auth_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `pid` bigint DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `display` tinyint DEFAULT NULL,
+  `createtime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updatetime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('1', '用户管理', NULL, '0', '1', '1', '2020-02-16 11:12:04', '2020-02-15 11:54:13');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('2', '权限管理', NULL, '0', '1', '1', '2020-02-16 11:12:04', '2020-02-15 11:55:50');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('3', '商品管理', NULL, '0', '1', '1', '2020-02-16 11:12:05', '2020-02-15 11:55:53');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('4', '订单管理', NULL, '0', '1', '1', '2020-02-16 11:12:05', '2020-02-15 11:56:18');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('5', '数据统计', NULL, '0', '1', '1', '2020-02-16 11:12:06', '2020-02-15 11:56:35');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('6', '商品列表', 'goods', '3', '1', '1', '2020-02-16 11:12:07', '2020-02-15 20:37:01');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('7', '用户列表', 'users', '1', '1', '1', '2020-02-16 11:12:07', '2020-02-15 20:36:22');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('8', '角色列表', 'roles', '2', '1', '1', '2020-02-16 11:12:08', '2020-02-15 20:36:44');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('9', '权限列表', 'rights', '2', '1', '1', '2020-02-16 11:12:08', '2020-02-15 20:36:54');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('10', '分类参数', 'params', '3', '1', '1', '2020-02-16 11:12:09', '2020-02-15 20:37:07');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('11', '商品分类', 'categories', '3', '1', '1', '2020-02-16 11:12:09', '2020-02-15 20:37:19');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('12', '订单列表', 'orders', '4', '1', '1', '2020-02-16 11:12:10', '2020-02-15 20:37:27');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('13', '数据报表', 'reports', '5', '1', '1', '2020-02-16 11:12:11', '2020-02-15 20:37:32');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('14', '添加商品', NULL, '6', '1', '0', '2020-02-16 11:16:32', '2020-02-16 11:16:35');
