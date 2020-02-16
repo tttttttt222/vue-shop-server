@@ -27,6 +27,8 @@ public class UserInfo {
 
     private Integer status;
 
+    private boolean mg_state;
+
     private String roleName;
 
     private String createtime;

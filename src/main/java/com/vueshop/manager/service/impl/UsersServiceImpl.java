@@ -33,6 +33,9 @@ public class UsersServiceImpl implements UsersService {
         UserInfoQueryResponse res = new UserInfoQueryResponse();
         List<UserInfo> userInfos = userInfoDao.queryUserPage(pageRequest.getQuery(), pageRequest.getPagestart(), pageRequest.getPagesize());
         Integer count = userInfoDao.queryUserPageCount(pageRequest.getQuery());
+        for (UserInfo userInfo : userInfos) {
+            userInfo.setMg_state(userInfo.getStatus() == 1 ? true : false);
+        }
         res.setTotal(count);
         res.setPagenum(pageRequest.getPagenum());
         res.setUsers(userInfos);
@@ -45,13 +48,13 @@ public class UsersServiceImpl implements UsersService {
         if (userInfoRequest.getStatus() == null) {
             userInfoRequest.setStatus(0);
         }
-        try{
+        try {
             userInfoDao.updateUserInfo(userInfoRequest);
-        }catch (Exception e){
-            log.error("更新失败",e.getMessage());
+        } catch (Exception e) {
+            log.error("更新失败", e.getMessage());
             return null;
         }
-        BeanUtils.copyProperties(userInfoRequest,userInfoResponse);
+        BeanUtils.copyProperties(userInfoRequest, userInfoResponse);
         return userInfoResponse;
     }
 
