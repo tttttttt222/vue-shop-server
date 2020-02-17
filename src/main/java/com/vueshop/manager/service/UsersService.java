@@ -17,4 +17,10 @@ public interface UsersService {
     UserInfoQueryResponse queryUserPage(PageRequest<UserInfoQueryRequest> pageRequest);
 
     UserInfoResponse updateUserInfoById(UserInfoRequest userInfoRequest);
+
+    UserInfoResponse queryUserInfoById(Long id);
+
+    UserInfoResponse deleteUserById(Long id);
+
+    UserInfoResponse insertUser(UserInfoRequest userInfoRequest);
 }

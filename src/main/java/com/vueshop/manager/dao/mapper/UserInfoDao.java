@@ -20,4 +20,10 @@ public interface UserInfoDao {
     Integer queryUserPageCount(@Param("query") UserInfoQueryRequest userInfoRequest);
 
     void updateUserInfo(@Param("userInfo")UserInfoRequest userInfoRequest);
+
+	UserInfo queryUserInfoById(Long id);
+
+	void deleteUserById(Long id);
+
+	void insertUserInfo(@Param("userInfo")UserInfoRequest userInfoRequest);
 }

@@ -74,6 +74,7 @@
         </where>
     </select>
 
+
     <update id="updateUserInfo" parameterType="com.vueshop.manager.controller.http.request.UserInfoRequest">
         UPDATE user_info
         <set>
@@ -92,10 +93,27 @@
             <if test=" userInfo.status != null">
                 status =#{userInfo.status},
             </if>
-            update_time = now()
+            updatetime = now()
         </set>
         WHERE id =#{userInfo.id}
     </update>
 
+
+    <select id="queryUserInfoById" resultType="com.vueshop.manager.dao.model.UserInfo">
+        SELECT
+        <include refid="allColumn"/>
+        FROM user_info
+        WHERE id = #{id}
+    </select>
+
+
+    <delete id="deleteUserById" parameterType="java.lang.Long">
+       DELETE FROM user_info WHERE id = #{id}
+    </delete>
+
+    <insert id="insertUserInfo" parameterType="com.vueshop.manager.controller.http.request.UserInfoRequest">
+    insert into user_info (rid,username,mobile,email,password,status,createtime,updatetime
+    values (#{userInfo.rid},#{userInfo.username},#{userInfo.mobile},#{userInfo.email},#{userInfo.password},#{userInfo.status},NOW(),NOW())
+    </insert>
 
 </mapper>

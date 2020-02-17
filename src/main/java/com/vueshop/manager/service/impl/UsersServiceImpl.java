@@ -58,5 +58,38 @@ public class UsersServiceImpl implements UsersService {
         return userInfoResponse;
     }
 
+    @Override
+    public UserInfoResponse queryUserInfoById(Long id) {
+        UserInfoResponse userInfoResponse = new UserInfoResponse();
+        UserInfo userInfo = userInfoDao.queryUserInfoById(id);
+        BeanUtils.copyProperties(userInfo, userInfoResponse);
+        return userInfoResponse;
+    }
+
+    @Override
+    public UserInfoResponse deleteUserById(Long id) {
+        UserInfoResponse userInfoResponse = new UserInfoResponse();
+        try {
+            userInfoDao.deleteUserById(id);
+        } catch (Exception e) {
+            log.error("删除失败", e.getMessage());
+            return null;
+        }
+        return userInfoResponse;
+    }
+
+    @Override
+    public UserInfoResponse insertUser(UserInfoRequest userInfoRequest) {
+        UserInfoResponse userInfoResponse = new UserInfoResponse();
+        try {
+            userInfoDao.insertUserInfo(userInfoRequest);
+        } catch (Exception e) {
+            log.error("添加失败", e.getMessage());
+            return null;
+        }
+        BeanUtils.copyProperties(userInfoRequest, userInfoResponse);
+        return userInfoResponse;
+    }
+
 
 }
