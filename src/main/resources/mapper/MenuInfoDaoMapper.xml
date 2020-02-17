@@ -9,6 +9,7 @@
         <result column="pid" property="pid" jdbcType="BIGINT"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
         <result column="display" property="display" jdbcType="TINYINT"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
         <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
         <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -21,6 +22,7 @@
        pid,
        status,
        display,
+       level,
        createtime,
        updatetime
     </sql>
@@ -32,8 +34,16 @@
         FROM user_menus
         WHERE display = 1
         AND status = 1
-        ORDER BY pid ASC
+        ORDER BY level ASC
     </select>
 
+
+    <select id="queryMenuInfo" resultMap="MenuInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM user_menus
+        WHERE status = 1
+        ORDER BY level ASC
+    </select>
 
 </mapper>

@@ -26,6 +26,7 @@ public class MenuInfoResponse {
     //
     private Long pid;
 
+    private Integer level;
     //
     private Integer status;
 

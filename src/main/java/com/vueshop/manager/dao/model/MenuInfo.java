@@ -28,6 +28,8 @@ public class MenuInfo {
 
     private Integer display;
 
+    private Integer level;
+
     //
     private String createtime;
 
