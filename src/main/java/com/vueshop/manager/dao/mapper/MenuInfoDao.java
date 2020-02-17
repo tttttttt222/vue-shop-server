@@ -16,5 +16,7 @@ public interface MenuInfoDao {
 
     List<MenuInfo> queryMenuInfo();
 
+    List<MenuInfo> queryMenuInfoByRoleId(Long roleId);
+
 
 }

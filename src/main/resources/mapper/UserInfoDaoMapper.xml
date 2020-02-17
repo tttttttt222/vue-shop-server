@@ -112,8 +112,8 @@
     </delete>
 
     <insert id="insertUserInfo" parameterType="com.vueshop.manager.controller.http.request.UserInfoRequest">
-    insert into user_info (rid,username,mobile,email,password,status,createtime,updatetime
-    values (#{userInfo.rid},#{userInfo.username},#{userInfo.mobile},#{userInfo.email},#{userInfo.password},#{userInfo.status},NOW(),NOW())
+       INSERT INTO user_info (rid,username,mobile,email,password,status,createtime,updatetime)
+       VALUES (#{userInfo.rid},#{userInfo.username},#{userInfo.mobile},#{userInfo.email},#{userInfo.password},#{userInfo.status},NOW(),NOW())
     </insert>
 
 </mapper>

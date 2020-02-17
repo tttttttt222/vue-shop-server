@@ -46,4 +46,22 @@
         ORDER BY level ASC
     </select>
 
+    <select id="queryMenuInfoByRoleId" resultMap="MenuInfoMap">
+        SELECT
+            um.id,
+            um.auth_name,
+            um.path,
+            um.pid,
+            um.status,
+            um.display,
+            um.level,
+            um.createtime,
+            um.updatetime
+        FROM user_menus um
+        RIGHT JOIN user_role_menu urm ON um.id = urm.menu_id
+        WHERE status = 1
+        AND urm.role_id = #{roleId}
+        ORDER BY level ASC
+    </select>
+
 </mapper>

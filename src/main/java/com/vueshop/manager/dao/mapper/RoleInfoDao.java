@@ -1,8 +1,10 @@
 package com.vueshop.manager.dao.mapper;
 
+import com.vueshop.manager.controller.http.request.RoleInfoRequest;
 import com.vueshop.manager.dao.model.RoleInfo;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 项目名称:vue-shop-manager
@@ -15,4 +17,5 @@ public interface RoleInfoDao {
     List<RoleInfo> queryRoleInfoAll();
 
 
+    void insertRoleOne(@Param("roleInfo") RoleInfoRequest roleInfoRequest);
 }

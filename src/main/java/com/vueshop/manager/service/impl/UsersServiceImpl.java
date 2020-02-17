@@ -82,6 +82,7 @@ public class UsersServiceImpl implements UsersService {
     public UserInfoResponse insertUser(UserInfoRequest userInfoRequest) {
         UserInfoResponse userInfoResponse = new UserInfoResponse();
         try {
+            userInfoRequest.setStatus(1);
             userInfoDao.insertUserInfo(userInfoRequest);
         } catch (Exception e) {
             log.error("添加失败", e.getMessage());

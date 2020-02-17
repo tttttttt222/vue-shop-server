@@ -14,4 +14,6 @@ public interface RightsService {
 	List<MenuInfoResponse> getAllRightsInfoNormal();
 
 	List<MenuInfoResponse> getAllRightsInfoTree();
+
+	List<MenuInfoResponse> getAllRightsInfoTreeByRoleId(Long roleId);
 }

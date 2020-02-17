@@ -31,25 +31,8 @@ public class RightsServiceImpl implements RightsService {
 
     @Override
     public List<MenuInfoResponse> queryMenuInfoAll() {
-        HashMap<Long, MenuInfoResponse> menuInfoMap = new HashMap<>();
         List<MenuInfo> menuInfos = menuInfoDao.queryMenuInfoAll();
-        List<MenuInfoResponse> menuInfoResponses = new ArrayList<>();
-        for (MenuInfo menuInfo : menuInfos) {
-            MenuInfoResponse menuInfoResponse = new MenuInfoResponse();
-            BeanUtils.copyProperties(menuInfo, menuInfoResponse);
-            menuInfoMap.put(menuInfo.getId(),menuInfoResponse);
-            menuInfoResponses.add(menuInfoResponse);
-        }
-        Iterator<MenuInfoResponse> iterator = menuInfoResponses.iterator();
-        while (iterator.hasNext()){
-            MenuInfoResponse next = iterator.next();
-            Long pid = next.getPid();
-            if(pid != 0){
-                MenuInfoResponse menuInfoResponse = menuInfoMap.get(pid);
-                menuInfoResponse.getChildren().add(next);
-                iterator.remove();
-            }
-        }
+        List<MenuInfoResponse> menuInfoResponses = getTreeConstructMenuInfoResponses(menuInfos);
         return menuInfoResponses;
     }
 
@@ -67,8 +50,24 @@ public class RightsServiceImpl implements RightsService {
 
     @Override
     public List<MenuInfoResponse> getAllRightsInfoTree() {
-        HashMap<Long, MenuInfoResponse> menuInfoMap = new HashMap<>();
         List<MenuInfo> menuInfos = menuInfoDao.queryMenuInfo();
+        List<MenuInfoResponse> menuInfoResponses = getTreeConstructMenuInfoResponses(menuInfos);
+        return menuInfoResponses;
+    }
+
+
+
+    @Override
+    public List<MenuInfoResponse> getAllRightsInfoTreeByRoleId(Long roleId) {
+        List<MenuInfo> menuInfos = menuInfoDao.queryMenuInfoByRoleId(roleId);
+        List<MenuInfoResponse> menuInfoResponses = getTreeConstructMenuInfoResponses(menuInfos);
+        return menuInfoResponses;
+    }
+
+
+    //获取树形结构
+    private List<MenuInfoResponse> getTreeConstructMenuInfoResponses(List<MenuInfo> menuInfos) {
+        HashMap<Long, MenuInfoResponse> menuInfoMap = new HashMap<>();
         List<MenuInfoResponse> menuInfoResponses = new ArrayList<>();
         for (MenuInfo menuInfo : menuInfos) {
             MenuInfoResponse menuInfoResponse = new MenuInfoResponse();
@@ -88,7 +87,6 @@ public class RightsServiceImpl implements RightsService {
         }
         return menuInfoResponses;
     }
-
 
 
 }
