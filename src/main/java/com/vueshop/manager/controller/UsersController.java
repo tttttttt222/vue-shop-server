@@ -1,6 +1,5 @@
 package com.vueshop.manager.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.vueshop.manager.controller.http.request.UserInfoQueryRequest;
 import com.vueshop.manager.controller.http.request.UserInfoRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
@@ -43,8 +42,11 @@ public class UsersController extends BaseController {
 		String query = request.getParameter("query");
 		PageRequest<UserInfoQueryRequest> pageRequest = new PageRequest(Integer.parseInt(pagenum),
 				Integer.parseInt(pagesize));
-		UserInfoQueryRequest userInfoQueryRequest = JSON.parseObject(query, UserInfoQueryRequest.class);
-		pageRequest.setQuery(userInfoQueryRequest == null ? new UserInfoQueryRequest() : userInfoQueryRequest);
+//		UserInfoQueryRequest userInfoQueryRequest = JSON.parseObject(query, UserInfoQueryRequest.class);
+//		pageRequest.setQuery(userInfoQueryRequest == null ? new UserInfoQueryRequest() : userInfoQueryRequest);
+		UserInfoQueryRequest userInfoQueryRequest = new UserInfoQueryRequest();
+		userInfoQueryRequest.setUsername(query);
+		pageRequest.setQuery(userInfoQueryRequest);
 		UserInfoQueryResponse userInfoPageResponse = usersService.queryUserPage(pageRequest);
 
 		httpResponse.setData(userInfoPageResponse);
