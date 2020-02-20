@@ -18,4 +18,10 @@ public interface RoleInfoDao {
 
 
     void insertRoleOne(@Param("roleInfo") RoleInfoRequest roleInfoRequest);
+
+	RoleInfo queryRoleInfoById(long id);
+
+	void updateRoleInfo(@Param("roleInfo") RoleInfoRequest roleInfoRequest);
+
+	void deleteRoleById(long id);
 }

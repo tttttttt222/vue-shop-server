@@ -32,8 +32,8 @@ public class UsersController extends BaseController {
 		HttpResponse<UserInfoQueryResponse> httpResponse = new HttpResponse<>(new Meta());
 
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -62,8 +62,8 @@ public class UsersController extends BaseController {
 			@RequestBody UserInfoRequest userInfoRequest) {
 		HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -90,8 +90,8 @@ public class UsersController extends BaseController {
 			@PathVariable boolean type) {
 		HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -117,8 +117,8 @@ public class UsersController extends BaseController {
 	public HttpResponse<UserInfoResponse> queryUserById(HttpServletRequest request, @PathVariable long id) {
 		HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -143,8 +143,8 @@ public class UsersController extends BaseController {
 	public HttpResponse<UserInfoResponse> deleteUserById(HttpServletRequest request, @PathVariable long id) {
 		HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -166,11 +166,12 @@ public class UsersController extends BaseController {
 
 	@PostMapping("users")
 	@ResponseBody
-	public HttpResponse<UserInfoResponse> addUser(HttpServletRequest request,@RequestBody UserInfoRequest userInfoRequest) {
+	public HttpResponse<UserInfoResponse> addUser(HttpServletRequest request,
+			@RequestBody UserInfoRequest userInfoRequest) {
 		HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -188,5 +189,35 @@ public class UsersController extends BaseController {
 		httpResponse.getMeta().setStatus(200);
 		return httpResponse;
 	}
+
+
+	@PutMapping("users/{id}/role")
+	@ResponseBody
+	public HttpResponse<UserInfoResponse> updateUserStateById(HttpServletRequest request, @PathVariable long id) {
+		HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
+		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
+			httpResponse.getMeta().setStatus(400);
+			return httpResponse;
+		}
+		String rid = request.getParameter("rid");
+		UserInfoRequest userInfoRequest = new UserInfoRequest();
+		userInfoRequest.setId(id);
+		userInfoRequest.setRid(Integer.parseInt(rid));
+		UserInfoResponse userInfoResponse = usersService.updateUserInfoById(userInfoRequest);
+
+		if (userInfoResponse == null) {
+			httpResponse.getMeta().setMsg("设置角色成功");
+			httpResponse.getMeta().setStatus(400);
+			return httpResponse;
+		}
+
+		httpResponse.setData(userInfoResponse);
+		httpResponse.getMeta().setMsg("设置角色失败");
+		httpResponse.getMeta().setStatus(200);
+		return httpResponse;
+	}
+
 }
 

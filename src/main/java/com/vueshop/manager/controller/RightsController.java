@@ -33,8 +33,8 @@ public class RightsController extends BaseController {
 		HttpResponse<List<MenuInfoResponse>> httpResponse = new HttpResponse<>(new Meta());
 
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
@@ -53,8 +53,8 @@ public class RightsController extends BaseController {
 	public HttpResponse<List<MenuInfoResponse>> getAllRightsInfo(HttpServletRequest request, @PathVariable String type) {
 		HttpResponse<List<MenuInfoResponse>> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-		if (authInfoDto == null) {
-			httpResponse.getMeta().setMsg("未登录");
+		if (authInfoDto.isNotAuth()) {
+			httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}

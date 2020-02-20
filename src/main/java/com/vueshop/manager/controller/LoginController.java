@@ -30,7 +30,6 @@ public class LoginController extends BaseController{
     @PostMapping("login")
     @ResponseBody
     public HttpResponse<UserInfoResponse> login(HttpServletRequest request, @RequestBody UserInfoRequest userInfoRequest) {
-        loginAuthorizationCheck(request);
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 
         UserInfoResponse userInfoResponse = loginService.queryUserInfo(userInfoRequest);

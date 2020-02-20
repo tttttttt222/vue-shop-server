@@ -64,4 +64,16 @@
         ORDER BY level ASC
     </select>
 
+
+    <insert id="insertRoleBatch">
+        INSERT INTO user_role_menu (role_id,menu_id,createdTime ) VALUES
+        <foreach collection="rids" item="item" index="index" separator=",">
+            　　(#{roleId},#{item},NOW())
+        </foreach>
+    </insert>
+
+    <delete id="deleteRights">
+        DELETE FROM user_role WHERE role_id = #{roleId} AND  menu_id = #{rightId}
+    </delete>
+
 </mapper>

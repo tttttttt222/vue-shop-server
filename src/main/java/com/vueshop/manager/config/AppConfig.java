@@ -1,16 +1,14 @@
 package com.vueshop.manager.config;
 
 import com.vueshop.manager.config.bean.SpringBeanUtil;
-import com.vueshop.manager.dao.model.UserInfo;
+import com.vueshop.manager.dao.dto.AuthInfoDto;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 
 /**
  * 项目名称:com.examples.demo.mapper 描述: 创建人:ryw 创建时间:2018/12/25
@@ -47,7 +45,7 @@ public class AppConfig {
 	}
 
 	@Bean
-	public Map<String, UserInfo> redisCache(){
+	public Map<String, AuthInfoDto> redisCache(){
 		return new ConcurrentHashMap<>();
 	}
 

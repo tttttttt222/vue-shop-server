@@ -1,6 +1,8 @@
 package com.vueshop.manager.dao.dto;
 
+import com.vueshop.manager.dao.model.MenuInfo;
 import com.vueshop.manager.dao.model.UserInfo;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -13,5 +15,11 @@ import lombok.Data;
 public class AuthInfoDto {
 
     private UserInfo userInfo;
+
+    private List<MenuInfo> menuInfos;
+
+    private String errMsg;
+
+    private boolean notAuth = false;
 
 }

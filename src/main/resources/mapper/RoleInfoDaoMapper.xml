@@ -28,10 +28,36 @@
         AND status = 1
     </select>
 
+    <select id="queryRoleInfoById" resultType="com.vueshop.manager.dao.model.RoleInfo">
+        SELECT
+        <include refid="allColumn"/>
+        FROM user_role
+        WHERE id = #{id}
+    </select>
+
     <insert id="insertRoleOne" parameterType="com.vueshop.manager.controller.http.request.RoleInfoRequest">
         INSERT INTO user_role (role_name,role_desc,status,createtime,updatetime)
         VALUES (#{roleInfo.role_name},#{roleInfo.role_desc},#{roleInfo.status},NOW(),NOW())
     </insert>
 
+    <update id="updateRoleInfo">
+        UPDATE user_role
+        <set>
+            <if test=" roleInfo.roleName != null and roleInfo.roleName != ''">
+                role_name =#{roleInfo.roleName},
+            </if>
+            <if test=" roleInfo.roleDesc != null and roleInfo.roleDesc != ''">
+                role_desc =#{roleInfo.roleDesc},
+            </if>
+            <if test=" roleInfo.status != null">
+                status =#{roleInfo.status},
+            </if>
+            updatetime = now()
+        </set>
+        WHERE id =#{roleInfo.id}
+    </update>
 
+    <delete id="deleteRoleById">
+        DELETE FROM user_role WHERE id = #{id}
+    </delete>
 </mapper>
