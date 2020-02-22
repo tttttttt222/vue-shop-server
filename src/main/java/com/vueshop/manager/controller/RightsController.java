@@ -5,15 +5,12 @@ import com.vueshop.manager.controller.http.response.base.HttpResponse;
 import com.vueshop.manager.controller.http.response.base.Meta;
 import com.vueshop.manager.dao.dto.AuthInfoDto;
 import com.vueshop.manager.service.RightsService;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 项目名称:vue-shop-manager 描述: 创建人:ryw 创建时间:2020/2/17
@@ -48,7 +45,7 @@ public class RightsController extends BaseController {
 	}
 
 
-	@PostMapping("right/{type}")
+	@GetMapping("rights/{type}")
 	@ResponseBody
 	public HttpResponse<List<MenuInfoResponse>> getAllRightsInfo(HttpServletRequest request, @PathVariable String type) {
 		HttpResponse<List<MenuInfoResponse>> httpResponse = new HttpResponse<>(new Meta());
