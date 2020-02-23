@@ -24,3 +24,30 @@ INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, 
 INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('12', '订单列表', 'orders', '4', '1', '1', '2020-02-16 11:12:10', '2020-02-15 20:37:27');
 INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('13', '数据报表', 'reports', '5', '1', '1', '2020-02-16 11:12:11', '2020-02-15 20:37:32');
 INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `createtime`, `updatetime`) VALUES ('14', '添加商品', NULL, '6', '1', '0', '2020-02-16 11:16:32', '2020-02-16 11:16:35');
+
+
+
+
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('15', '商品修改', NULL, '6', '1', '0', '2', '2020-02-23 10:15:12', '2020-02-23 10:15:10');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('16', '获取参数列表', NULL, '10', '1', '0', '2', '2020-02-23 10:15:52', '2020-02-23 10:15:55');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('17', '创建商品参数', NULL, '10', '1', '0', '2', '2020-02-23 10:16:38', '2020-02-23 10:16:40');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('18', '删除商品参数', NULL, '10', '1', '0', '2', '2020-02-23 10:16:59', '2020-02-23 10:17:02');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('19', '添加分类', NULL, '11', '1', '0', '2', '2020-02-23 10:17:25', '2020-02-23 10:17:27');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('20', '删除分类', NULL, '11', '1', '0', '2', '2020-02-23 10:17:41', '2020-02-23 10:17:43');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('21', '获取分类详情', NULL, '11', '1', '0', '2', '2020-02-23 10:18:07', '2020-02-23 10:18:09');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('22', '添加订单', NULL, '12', '1', '0', '2', '2020-02-23 10:20:09', '2020-02-23 10:20:11');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('23', '添加角色', NULL, '8', '1', '0', '2', '2020-02-23 10:20:46', '2020-02-23 10:20:48');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('24', '删除角色', NULL, '8', '1', '0', '2', '2020-02-23 10:31:58', '2020-02-23 10:32:00');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('25', '角色授权', NULL, '8', '1', '0', '2', '2020-02-23 10:31:53', '2020-02-23 10:31:55');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('26', '取消角色授权', NULL, '8', '1', '0', '2', '2020-02-23 10:32:32', '2020-02-23 10:32:34');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('27', '获取角色列表', NULL, '8', '1', '0', '2', '2020-02-23 10:35:03', '2020-02-23 10:35:08');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('28', '获取角色详情', NULL, '8', '1', '0', '2', '2020-02-23 10:35:25', '2020-02-23 10:35:27');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('29', '更新角色信息', NULL, '8', '1', '0', '2', '2020-02-23 10:35:48', '2020-02-23 10:35:49');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('30', '更新角色权限', NULL, '8', '1', '0', '2', '2020-02-23 10:36:05', '2020-02-23 10:36:06');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('31', '查看权限', NULL, '9', '1', '0', '2', '2020-02-23 10:36:39', '2020-02-23 10:36:41');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('32', '添加用户', NULL, '7', '1', '0', '2', '2020-02-23 10:39:38', '2020-02-23 10:39:40');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('33', '删除用户', NULL, '7', '1', '0', '2', '2020-02-23 10:39:42', '2020-02-23 10:39:43');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('34', '更新用户', NULL, '7', '1', '0', '2', '2020-02-23 10:39:44', '2020-02-23 10:39:45');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('35', '获取用户详情', NULL, '7', '1', '0', '2', '2020-02-23 10:39:46', '2020-02-23 10:39:47');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('36', '分配用户角色', NULL, '7', '1', '0', '2', '2020-02-23 10:39:48', '2020-02-23 10:39:49');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('37', '查看数据', NULL, '13', '1', '0', '2', '2020-02-23 10:39:50', '2020-02-23 10:39:51');
