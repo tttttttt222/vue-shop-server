@@ -74,6 +74,11 @@ public class RightsServiceImpl implements RightsService {
         menuInfoDao.deleteRights(roleId,rightId);
     }
 
+    @Override
+    public void deleteRightsByRId(long roleId) {
+        menuInfoDao.deleteRightsByRId(roleId);
+    }
+
 
     //获取树形结构
     private List<MenuInfoResponse> getTreeConstructMenuInfoResponses(List<MenuInfo> menuInfos) {

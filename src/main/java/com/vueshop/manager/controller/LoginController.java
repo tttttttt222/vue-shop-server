@@ -32,15 +32,21 @@ public class LoginController extends BaseController{
     public HttpResponse<UserInfoResponse> login(HttpServletRequest request, @RequestBody UserInfoRequest userInfoRequest) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 
-        UserInfoResponse userInfoResponse = loginService.queryUserInfo(userInfoRequest);
-        if (userInfoResponse == null || !userInfoResponse.getPassword().equals(userInfoRequest.getPassword())) {
+        try{
+            UserInfoResponse userInfoResponse = loginService.queryUserInfo(userInfoRequest);
+            if (userInfoResponse == null || !userInfoResponse.getPassword().equals(userInfoRequest.getPassword())) {
+                httpResponse.getMeta().setMsg("登录失败");
+                httpResponse.getMeta().setStatus(400);
+                return httpResponse;
+            }
+            httpResponse.setData(userInfoResponse);
+            httpResponse.getMeta().setMsg("登录成功");
+            httpResponse.getMeta().setStatus(200);
+        }catch (Exception e){
+            log.error(e.getMessage());
             httpResponse.getMeta().setMsg("登录失败");
             httpResponse.getMeta().setStatus(400);
-            return httpResponse;
         }
-        httpResponse.setData(userInfoResponse);
-        httpResponse.getMeta().setMsg("登录成功");
-        httpResponse.getMeta().setStatus(200);
         return httpResponse;
     }
 

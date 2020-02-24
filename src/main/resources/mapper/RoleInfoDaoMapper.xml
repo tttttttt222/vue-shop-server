@@ -28,7 +28,7 @@
         WHERE status = 1
     </select>
 
-    <select id="queryRoleInfoById" resultType="com.vueshop.manager.dao.model.RoleInfo">
+    <select id="queryRoleInfoById" resultMap="RoleInfoMap">
         SELECT
         <include refid="allColumn"/>
         FROM user_role
@@ -37,7 +37,7 @@
 
     <insert id="insertRoleOne" parameterType="com.vueshop.manager.controller.http.request.RoleInfoRequest">
         INSERT INTO user_role (role_name,role_desc,status,createtime,updatetime)
-        VALUES (#{roleInfo.role_name},#{roleInfo.role_desc},#{roleInfo.status},NOW(),NOW())
+        VALUES (#{roleInfo.roleName},#{roleInfo.roleDesc},#{roleInfo.status},NOW(),NOW())
     </insert>
 
     <update id="updateRoleInfo">
@@ -49,7 +49,7 @@
             <if test=" roleInfo.roleDesc != null and roleInfo.roleDesc != ''">
                 role_desc =#{roleInfo.roleDesc},
             </if>
-            <if test=" roleInfo.status != null">
+            <if test=" roleInfo.status != null and roleInfo.status != ''">
                 status =#{roleInfo.status},
             </if>
             updatetime = now()

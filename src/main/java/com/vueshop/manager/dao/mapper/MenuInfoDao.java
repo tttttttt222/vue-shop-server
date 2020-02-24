@@ -22,4 +22,6 @@ public interface MenuInfoDao {
 	void insertRoleBatch(@Param("roleId") long roleId, @Param("rids") List<Long> rids);
 
 	void deleteRights(@Param("roleId") long roleId, @Param("rightId")long rightId);
+
+	void deleteRightsByRId(@Param("roleId")long roleId);
 }

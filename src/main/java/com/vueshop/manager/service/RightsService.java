@@ -1,7 +1,6 @@
 package com.vueshop.manager.service;
 
 import com.vueshop.manager.controller.http.response.MenuInfoResponse;
-import com.vueshop.manager.controller.http.response.UserInfoResponse;
 import java.util.List;
 
 /**
@@ -20,4 +19,6 @@ public interface RightsService {
 	void addRightsByRoleId(long roleId, List<Long> rids);
 
 	void roleDeleteRights(long roleId, long rightId);
+
+	void deleteRightsByRId(long roleId);
 }

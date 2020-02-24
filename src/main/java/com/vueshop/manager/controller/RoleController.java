@@ -188,7 +188,7 @@ public class RoleController extends BaseController {
 
 	@DeleteMapping("roles/{roleId}/rights/{rightId}")
 	@ResponseBody
-	public HttpResponse<List<MenuInfoResponse>> addRole(HttpServletRequest request,@PathVariable long roleId,@PathVariable long rightId) {
+	public HttpResponse<List<MenuInfoResponse>> roleDeleteByRights(HttpServletRequest request,@PathVariable long roleId,@PathVariable long rightId) {
 		HttpResponse<List<MenuInfoResponse>> httpResponse = new HttpResponse<>(new Meta());
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
 		if (authInfoDto.isNotAuth()) {

@@ -73,7 +73,11 @@
     </insert>
 
     <delete id="deleteRights">
-        DELETE FROM user_role WHERE role_id = #{roleId} AND  menu_id = #{rightId}
+        DELETE FROM user_role_menu WHERE role_id = #{roleId} AND  menu_id = #{rightId}
+    </delete>
+
+    <delete id="deleteRightsByRId">
+        DELETE FROM user_role_menu WHERE role_id = #{roleId}
     </delete>
 
 </mapper>

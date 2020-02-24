@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
 			RoleInfoWithRightsResponse roleInfoWithRightsResponse = new RoleInfoWithRightsResponse();
 			BeanUtils.copyProperties(roleInfo,roleInfoWithRightsResponse);
 			roleInfoWithRightsResponses.add(roleInfoWithRightsResponse);
-			roleInfoWithRightsResponse.setChildren(rightsService.getAllRightsInfoTree());
+			roleInfoWithRightsResponse.setChildren(rightsService.getAllRightsInfoTreeByRoleId(roleInfo.getId()));
 		}
 		return roleInfoWithRightsResponses;
 	}
@@ -68,9 +68,6 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public RoleInfoResponse updateRoleInfoById(RoleInfoRequest roleInfoRequest) {
 		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
-		if (roleInfoRequest.getStatus() == null) {
-			roleInfoRequest.setStatus(0);
-		}
 		try {
 			roleInfoDao.updateRoleInfo(roleInfoRequest);
 		} catch (Exception e) {
@@ -86,6 +83,7 @@ public class RoleServiceImpl implements RoleService {
 		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
 		try {
 			roleInfoDao.deleteRoleById(id);
+			rightsService.deleteRightsByRId(id);
 		} catch (Exception e) {
 			log.error("删除失败", e.getMessage());
 			return null;
