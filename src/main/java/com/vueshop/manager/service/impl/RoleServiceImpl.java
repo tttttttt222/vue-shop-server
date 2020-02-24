@@ -33,10 +33,10 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public List<RoleInfoWithRightsResponse> queryAllRoles() {
 		List<RoleInfo> roleInfos = roleInfoDao.queryRoleInfoAll();
-		List<RoleInfoWithRightsResponse> roleInfoWithRightsResponses=new ArrayList<>();
+		List<RoleInfoWithRightsResponse> roleInfoWithRightsResponses = new ArrayList<>();
 		for (RoleInfo roleInfo : roleInfos) {
 			RoleInfoWithRightsResponse roleInfoWithRightsResponse = new RoleInfoWithRightsResponse();
-			BeanUtils.copyProperties(roleInfo,roleInfoWithRightsResponse);
+			BeanUtils.copyProperties(roleInfo, roleInfoWithRightsResponse);
 			roleInfoWithRightsResponses.add(roleInfoWithRightsResponse);
 			roleInfoWithRightsResponse.setChildren(rightsService.getAllRightsInfoTreeByRoleId(roleInfo.getId()));
 		}
@@ -60,7 +60,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public RoleInfoResponse queryRoleInfoById(long id) {
 		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
-		RoleInfo roleInfo=roleInfoDao.queryRoleInfoById(id);
+		RoleInfo roleInfo = roleInfoDao.queryRoleInfoById(id);
 		BeanUtils.copyProperties(roleInfo, roleInfoResponse);
 		return roleInfoResponse;
 	}
@@ -92,16 +92,23 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public RoleInfoResponse roleAddRights(long roleId,List<Long> rids) {
-		rightsService.addRightsByRoleId(roleId,rids);
-		return new RoleInfoResponse();
+	public RoleInfoResponse roleAddRights(long roleId, List<Long> rids) {
+		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
+		try {
+			rightsService.deleteRightsByRId(roleId);
+			rightsService.addRightsByRoleId(roleId, rids);
+		} catch (Exception e) {
+			log.error("变更权限失败", e.getMessage());
+			return null;
+		}
+		return roleInfoResponse;
 	}
 
 	@Override
 	public List<MenuInfoResponse> roleDeleteRights(long roleId, long rightId) {
-		rightsService.roleDeleteRights(roleId,rightId);
+		rightsService.roleDeleteRights(roleId, rightId);
 		List<MenuInfoResponse> allRightsInfoTreeByRoleId = rightsService.getAllRightsInfoTreeByRoleId(roleId);
-		return  allRightsInfoTreeByRoleId;
+		return allRightsInfoTreeByRoleId;
 	}
 
 
