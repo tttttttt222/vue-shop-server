@@ -64,6 +64,25 @@
         ORDER BY level ASC
     </select>
 
+    <select id="queryMenuInfoByPid" resultMap="MenuInfoMap">
+        SELECT
+            um.id,
+            um.auth_name,
+            um.path,
+            um.pid,
+            um.status,
+            um.display,
+            um.level,
+            um.createtime,
+            um.updatetime
+        FROM user_menus um
+        RIGHT JOIN user_role_menu urm ON um.id = urm.menu_id
+        WHERE status = 1
+        AND urm.role_id = #{roleId}
+        AND um.pid = #{rightId}
+        ORDER BY level ASC
+    </select>
+
 
     <insert id="insertRoleBatch">
         INSERT INTO user_role_menu (role_id,menu_id,createdTime ) VALUES

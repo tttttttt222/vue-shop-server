@@ -1,6 +1,7 @@
 package com.vueshop.manager.service;
 
 import com.vueshop.manager.controller.http.response.MenuInfoResponse;
+import com.vueshop.manager.dao.model.MenuInfo;
 import java.util.List;
 
 /**
@@ -16,9 +17,13 @@ public interface RightsService {
 
 	List<MenuInfoResponse> getAllRightsInfoTreeByRoleId(Long roleId);
 
-	void addRightsByRoleId(long roleId, List<Long> rids);
+	void addRightsByRoleId(Long roleId, List<Long> rids);
 
-	void roleDeleteRights(long roleId, long rightId);
+	void roleDeleteRights(Long roleId, Long rightId);
 
-	void deleteRightsByRId(long roleId);
+	void deleteRightsByRId(Long roleId);
+
+	List<MenuInfo> queryMenuInfoByPid(Long roleId,Long rightId);
+
+	List<MenuInfo> queryMenuInfoByRoleId(Long roleId);
 }

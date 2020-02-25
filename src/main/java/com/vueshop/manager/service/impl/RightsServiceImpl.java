@@ -64,21 +64,33 @@ public class RightsServiceImpl implements RightsService {
         return menuInfoResponses;
     }
 
+
     @Override
-    public void addRightsByRoleId(long roleId, List<Long> rids) {
+    public void addRightsByRoleId(Long roleId, List<Long> rids) {
         menuInfoDao.insertRoleBatch(roleId,rids);
     }
 
     @Override
-    public void roleDeleteRights(long roleId, long rightId) {
+    public void roleDeleteRights(Long roleId, Long rightId) {
         menuInfoDao.deleteRights(roleId,rightId);
     }
 
     @Override
-    public void deleteRightsByRId(long roleId) {
+    public void deleteRightsByRId(Long roleId) {
         menuInfoDao.deleteRightsByRId(roleId);
     }
 
+    //查询父id的信息
+    @Override
+    public List<MenuInfo> queryMenuInfoByPid(Long roleId,Long rightId) {
+        return menuInfoDao.queryMenuInfoByPid(roleId,rightId);
+    }
+
+
+    @Override
+    public List<MenuInfo> queryMenuInfoByRoleId(Long roleId) {
+        return menuInfoDao.queryMenuInfoByRoleId(roleId);
+    }
 
     //获取树形结构
     private List<MenuInfoResponse> getTreeConstructMenuInfoResponses(List<MenuInfo> menuInfos) {

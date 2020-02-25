@@ -13,6 +13,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * 项目名称:demo 描述: 创建人:ryw 创建时间:2018/12/25
@@ -98,6 +100,20 @@ public class DataSourceConfig {
 		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(DataSourceConfig.MAPPER_LOCATION));
 		return sessionFactory.getObject();
+	}
+
+	@Bean
+	public DataSourceTransactionManager transactionManager() throws Exception {
+		return new DataSourceTransactionManager(dataSource());
+	}
+
+	@Bean
+	public TransactionTemplate transactionTemplate() throws Exception {
+		TransactionTemplate transactionTemplate = new TransactionTemplate();
+		transactionTemplate.setTransactionManager(transactionManager());
+		transactionTemplate.setIsolationLevelName("ISOLATION_DEFAULT");
+		transactionTemplate.setPropagationBehaviorName("PROPAGATION_REQUIRED");
+		return transactionTemplate;
 	}
 
 

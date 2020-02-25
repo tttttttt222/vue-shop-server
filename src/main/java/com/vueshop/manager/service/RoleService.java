@@ -15,13 +15,13 @@ public interface RoleService {
 
 	RoleInfoResponse insertRole(RoleInfoRequest roleInfoRequest);
 
-	RoleInfoResponse queryRoleInfoById(long id);
+	RoleInfoResponse queryRoleInfoById(Long id);
 
 	RoleInfoResponse updateRoleInfoById(RoleInfoRequest roleInfoRequest);
 
-	RoleInfoResponse deleteRoleById(long id);
+	RoleInfoResponse deleteRoleById(Long id);
 
-	RoleInfoResponse roleAddRights(long roleId,List<Long> rids);
+	RoleInfoResponse roleAddRights(Long roleId,List<Long> rids);
 
-	List<MenuInfoResponse> roleDeleteRights(long roleId, long rightId);
+	List<MenuInfoResponse> roleDeleteRights(Long roleId, Long rightId);
 }

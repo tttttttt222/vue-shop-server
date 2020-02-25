@@ -6,15 +6,19 @@ import com.vueshop.manager.controller.http.response.RoleInfoResponse;
 import com.vueshop.manager.controller.http.response.RoleInfoWithRightsResponse;
 import com.vueshop.manager.controller.http.response.UserInfoResponse;
 import com.vueshop.manager.dao.mapper.RoleInfoDao;
+import com.vueshop.manager.dao.model.MenuInfo;
 import com.vueshop.manager.dao.model.RoleInfo;
 import com.vueshop.manager.service.RightsService;
 import com.vueshop.manager.service.RoleService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * 项目名称:vue-shop-manager 描述: 创建人:ryw 创建时间:2020/2/17
@@ -28,6 +32,9 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleInfoDao roleInfoDao;
+
+	@Autowired
+	private TransactionTemplate transactionTemplate;
 
 
 	@Override
@@ -58,7 +65,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public RoleInfoResponse queryRoleInfoById(long id) {
+	public RoleInfoResponse queryRoleInfoById(Long id) {
 		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
 		RoleInfo roleInfo = roleInfoDao.queryRoleInfoById(id);
 		BeanUtils.copyProperties(roleInfo, roleInfoResponse);
@@ -79,11 +86,14 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public RoleInfoResponse deleteRoleById(long id) {
+	public RoleInfoResponse deleteRoleById(Long id) {
 		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
 		try {
-			roleInfoDao.deleteRoleById(id);
-			rightsService.deleteRightsByRId(id);
+			transactionTemplate.execute((TransactionCallback) transactionStatus -> {
+				roleInfoDao.deleteRoleById(id);
+				rightsService.deleteRightsByRId(id);
+				return null;
+			});
 		} catch (Exception e) {
 			log.error("删除失败", e.getMessage());
 			return null;
@@ -92,23 +102,40 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public RoleInfoResponse roleAddRights(long roleId, List<Long> rids) {
+	public RoleInfoResponse roleAddRights(Long roleId, List<Long> rids) {
 		RoleInfoResponse roleInfoResponse = new RoleInfoResponse();
 		try {
-			rightsService.deleteRightsByRId(roleId);
-			rightsService.addRightsByRoleId(roleId, rids);
+			transactionTemplate.execute((TransactionCallback) transactionStatus -> {
+				rightsService.deleteRightsByRId(roleId);
+				rightsService.addRightsByRoleId(roleId, rids);
+				return null;
+			});
 		} catch (Exception e) {
-			log.error("变更权限失败", e.getMessage());
+			log.error("添加失败", e.getMessage());
 			return null;
 		}
 		return roleInfoResponse;
 	}
 
 	@Override
-	public List<MenuInfoResponse> roleDeleteRights(long roleId, long rightId) {
-		rightsService.roleDeleteRights(roleId, rightId);
+	public List<MenuInfoResponse> roleDeleteRights(Long roleId, Long rightId) {
+		transactionTemplate.execute((TransactionCallback) transactionStatus -> {
+			deleteRecursion(roleId, rightId);
+			return null;
+		});
 		List<MenuInfoResponse> allRightsInfoTreeByRoleId = rightsService.getAllRightsInfoTreeByRoleId(roleId);
 		return allRightsInfoTreeByRoleId;
+	}
+
+
+	private void deleteRecursion(Long roleId, Long rightId) {
+		rightsService.roleDeleteRights(roleId, rightId);
+		List<MenuInfo> menuInfos = rightsService.queryMenuInfoByPid(roleId, rightId);
+		if (menuInfos != null && menuInfos.size() > 0) {
+			for (MenuInfo menuInfo : menuInfos) {
+				deleteRecursion(roleId, menuInfo.getId());
+			}
+		}
 	}
 
 
