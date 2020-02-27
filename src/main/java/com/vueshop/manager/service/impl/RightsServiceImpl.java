@@ -108,6 +108,9 @@ public class RightsServiceImpl implements RightsService {
             Long pid = next.getPid();
             if(pid != 0){
                 MenuInfoResponse menuInfoResponse = menuInfoMap.get(pid);
+                if (menuInfoResponse.getChildren() == null) {
+                    menuInfoResponse.setChildren(new ArrayList<>());
+                }
                 menuInfoResponse.getChildren().add(next);
                 iterator.remove();
             }

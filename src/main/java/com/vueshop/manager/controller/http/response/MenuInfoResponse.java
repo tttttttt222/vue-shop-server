@@ -32,5 +32,5 @@ public class MenuInfoResponse {
 
     private Integer display;
 
-    private List<MenuInfoResponse> children = new ArrayList<>();
+    private List<MenuInfoResponse> children;
 }
