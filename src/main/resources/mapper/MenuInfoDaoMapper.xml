@@ -85,9 +85,10 @@
 
 
     <insert id="insertRoleBatch">
-        INSERT INTO user_role_menu (role_id,menu_id,createdTime ) VALUES
+        INSERT INTO user_role_menu (role_id,menu_id,createtime,updatetime)
+        VALUES
         <foreach collection="rids" item="item" index="index" separator=",">
-            　　(#{roleId},#{item},NOW())
+            (#{roleId},#{item},NOW(),NOW())
         </foreach>
     </insert>
 
