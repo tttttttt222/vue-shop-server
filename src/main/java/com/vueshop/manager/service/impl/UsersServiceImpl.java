@@ -45,9 +45,6 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UserInfoResponse updateUserInfoById(UserInfoRequest userInfoRequest) {
         UserInfoResponse userInfoResponse = new UserInfoResponse();
-        if (userInfoRequest.getStatus() == null) {
-            userInfoRequest.setStatus(0);
-        }
         try {
             userInfoDao.updateUserInfo(userInfoRequest);
         } catch (Exception e) {
