@@ -8,13 +8,19 @@ import com.vueshop.manager.controller.http.response.UserInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.UserInfoResponse;
 import com.vueshop.manager.controller.http.response.base.HttpResponse;
 import com.vueshop.manager.controller.http.response.base.Meta;
-import com.vueshop.manager.dao.dto.AuthInfoDto;
 import com.vueshop.manager.service.UsersService;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 项目名称:vue-shop-manager 描述: 创建人:ryw 创建时间:2020/2/15
@@ -22,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("api/private/v1/")
 @Slf4j
-public class UsersController extends BaseController {
+public class UsersController {
 
     @Autowired
     private UsersService usersService;
@@ -32,12 +38,6 @@ public class UsersController extends BaseController {
     public HttpResponse<UserInfoQueryResponse> queryUserPage(HttpServletRequest request) {
         HttpResponse<UserInfoQueryResponse> httpResponse = new HttpResponse<>(new Meta());
 
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
         String pagenum = request.getParameter("pagenum");
         String pagesize = request.getParameter("pagesize");
         String query = request.getParameter("query");
@@ -62,12 +62,6 @@ public class UsersController extends BaseController {
     public HttpResponse<UserInfoResponse> updateUserInfoById(HttpServletRequest request, @PathVariable long id,
                                                              @RequestBody UserInfoRequest userInfoRequest) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
 
         userInfoRequest.setId(id);
 		if (userInfoRequest.getStatus() == null) {
@@ -93,12 +87,7 @@ public class UsersController extends BaseController {
     public HttpResponse<UserInfoResponse> updateUserStateById(HttpServletRequest request, @PathVariable long id,
                                                               @PathVariable boolean type) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
+
         UserInfoRequest userInfoRequest = new UserInfoRequest();
         userInfoRequest.setId(id);
         userInfoRequest.setStatus(type ? 1 : 0);
@@ -120,12 +109,6 @@ public class UsersController extends BaseController {
     @ResponseBody
     public HttpResponse<UserInfoResponse> queryUserById(HttpServletRequest request, @PathVariable long id) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
 
         UserInfoResponse userInfoResponse = usersService.queryUserInfoById(id);
 
@@ -146,12 +129,6 @@ public class UsersController extends BaseController {
     @ResponseBody
     public HttpResponse<UserInfoResponse> deleteUserById(HttpServletRequest request, @PathVariable long id) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
 
         UserInfoResponse userInfoResponse = usersService.deleteUserById(id);
 
@@ -173,12 +150,6 @@ public class UsersController extends BaseController {
     public HttpResponse<UserInfoResponse> addUser(HttpServletRequest request,
                                                   @RequestBody UserInfoRequest userInfoRequest) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
 
         UserInfoResponse userInfoResponse = usersService.insertUser(userInfoRequest);
 
@@ -199,12 +170,7 @@ public class UsersController extends BaseController {
     @ResponseBody
     public HttpResponse<UserInfoResponse> updateUserStateById(HttpServletRequest request, @PathVariable long id, @RequestBody AssignRoleRequest assignRoleRequest) {
         HttpResponse<UserInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-        AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
-        if (authInfoDto.isNotAuth()) {
-            httpResponse.getMeta().setMsg(authInfoDto.getErrMsg());
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
+
         String rid = assignRoleRequest.getRid();
         UserInfoRequest userInfoRequest = new UserInfoRequest();
         userInfoRequest.setId(id);

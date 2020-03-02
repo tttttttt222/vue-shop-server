@@ -20,38 +20,9 @@ public class BaseController {
 	@Autowired
 	protected Map<String, AuthInfoDto> redisCache;
 
-	private static final List<String> menuWhiteList = Arrays.asList("home", "menus", "login");
 
-	public AuthInfoDto loginAuthorizationCheck(HttpServletRequest request) {
+	public AuthInfoDto getAuthInfo(HttpServletRequest request) {
 		AuthInfoDto authInfoDto = redisCache.get(request.getHeader("Authorization"));
-		if (authInfoDto == null) {
-			authInfoDto = new AuthInfoDto();
-			authInfoDto.setErrMsg("未登录");
-			authInfoDto.setNotAuth(true);
-			return authInfoDto;
-		}
-		boolean isAccept = false;
-		String requestURI = request.getRequestURI();
-		for (MenuInfo menuInfo : authInfoDto.getMenuInfos()) {
-			if (menuInfo.getPath() == null) {
-				continue;
-			}
-			if (requestURI.contains(menuInfo.getPath())) {
-				isAccept = true;
-				break;
-			}
-		}
-		for (String uri : menuWhiteList) {
-			if (requestURI.contains(uri)) {
-				isAccept = true;
-				break;
-			}
-		}
-
-		if (!isAccept) {
-			authInfoDto.setErrMsg("没有权限访问该路径");
-			authInfoDto.setNotAuth(true);
-		}
 		return authInfoDto;
 	}
 
