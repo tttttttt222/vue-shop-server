@@ -1,0 +1,11 @@
+CREATE TABLE `shop_goods_categories_attr` (
+  `id` bigint(20) NOT NULL,
+  `attr_name` varchar(128) DEFAULT NULL,
+  `cat_id` bigint(20) DEFAULT NULL,
+  `attr_sel` varchar(64) DEFAULT NULL,
+  `attr_write` varchar(64) DEFAULT NULL,
+  `attr_vals` varchar(255) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

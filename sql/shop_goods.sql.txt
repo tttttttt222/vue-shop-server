@@ -1,0 +1,18 @@
+CREATE TABLE `shop_goods` (
+  `id` bigint(20) NOT NULL,
+  `goods_name` varchar(255) DEFAULT NULL,
+  `goods_price` decimal(10,2) DEFAULT NULL,
+  `goods_number` int(11) DEFAULT NULL,
+  `goods_weight` decimal(10,0) DEFAULT NULL,
+  `goods_state` tinyint(4) DEFAULT NULL,
+  `hot_mumber` int(11) DEFAULT NULL,
+  `is_promote` tinyint(4) DEFAULT NULL,
+  `goods_small_logo` varchar(255) DEFAULT NULL,
+  `goods_big_logo` varchar(255) DEFAULT NULL,
+  `goods_introduce` text,
+  `is_del` tinyint(4) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delete_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
