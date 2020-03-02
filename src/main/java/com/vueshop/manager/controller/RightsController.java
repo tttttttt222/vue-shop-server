@@ -63,13 +63,13 @@ public class RightsController extends BaseController {
 		}
 
 		if (menuInfoResponses == null) {
-			httpResponse.getMeta().setMsg("获取权限列表成功");
+			httpResponse.getMeta().setMsg("获取权限列表失败");
 			httpResponse.getMeta().setStatus(400);
 			return httpResponse;
 		}
 
 		httpResponse.setData(menuInfoResponses);
-		httpResponse.getMeta().setMsg("获取权限列表失败");
+		httpResponse.getMeta().setMsg("获取权限列表成功");
 		httpResponse.getMeta().setStatus(200);
 		return httpResponse;
 	}
