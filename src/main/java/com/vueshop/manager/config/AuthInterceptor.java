@@ -1,5 +1,8 @@
 package com.vueshop.manager.config;
 
+import com.alibaba.fastjson.JSON;
+import com.vueshop.manager.controller.http.response.base.HttpResponse;
+import com.vueshop.manager.controller.http.response.base.Meta;
 import com.vueshop.manager.dao.dto.AuthInfoDto;
 import com.vueshop.manager.dao.model.MenuInfo;
 import java.util.Arrays;
@@ -29,6 +32,14 @@ public class AuthInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		AuthInfoDto authInfoDto = loginAuthorizationCheck(request);
 		if (authInfoDto.isNotAuth()) {
+			HttpResponse httpResponse = new HttpResponse();
+			Meta meta = new Meta();
+			meta.setMsg(authInfoDto.getErrMsg());
+			meta.setStatus(400);
+			httpResponse.setMeta(meta);
+			response.setHeader("Content-type", "text/html;charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(JSON.toJSONString(httpResponse));
 			return false;
 		}
 		return true;

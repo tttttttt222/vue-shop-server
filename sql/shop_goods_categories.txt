@@ -1,7 +1,7 @@
 CREATE TABLE `shop_goods_categories` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(64) DEFAULT NULL,
-  `cat_pid` int(11) DEFAULT NULL,
+  `cat_pid` bigint(20) DEFAULT NULL,
   `cat_level` int(11) DEFAULT NULL,
   `cat_deleted` tinyint(4) DEFAULT NULL,
   `state` tinyint(4) DEFAULT NULL,

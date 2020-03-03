@@ -19,7 +19,9 @@ public class PageRequest<T> {
     public PageRequest(Integer pagenum, Integer pagesize) {
         this.pagenum = pagenum;
         this.pagesize = pagesize;
-        this.pagestart = (pagenum - 1) * pagesize;
+        if(pagenum != null && pagesize != null){
+            this.pagestart = (pagenum - 1) * pagesize;
+        }
     }
 
     public PageRequest() {

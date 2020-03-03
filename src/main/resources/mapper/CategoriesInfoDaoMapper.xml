@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueshop.manager.dao.mapper.CategoriesInfoDao">
+
+    <resultMap id="CategoriesInfoMap" type="com.vueshop.manager.dao.model.CategoriesInfo">
+        <result column="id" property="cat_id" jdbcType="BIGINT"/>
+        <result column="cat_name" property="cat_name" jdbcType="VARCHAR"/>
+        <result column="cat_pid" property="cat_pid" jdbcType="BIGINT"/>
+        <result column="cat_level" property="cat_level" jdbcType="INTEGER"/>
+        <result column="cat_deleted" property="cat_deleted" jdbcType="TINYINT"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="allColumn">
+       id,
+       cat_name,
+       cat_pid,
+       cat_level,
+       cat_deleted,
+       state,
+       create_time,
+       update_time
+    </sql>
+
+
+    <select id="queryCategoriesPage" resultMap="CategoriesInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods_categories
+        <where>
+            cat_level = 0
+            <if test=" query.catName != null and query.catName != ''">
+                AND cat_name =#{query.catName}
+            </if>
+        </where>
+        ORDER BY id ASC
+        <if test=" pageNo != null and pageNo != ''">
+            LIMIT #{pageNo} , #{pageSize}
+        </if>
+    </select>
+
+    <select id="queryCategoriesPageCount" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM shop_goods_categories
+        <where>
+            cat_level = 0
+            <if test=" query.catName != null and query.catName != ''">
+                AND cat_name =#{query.catName}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCategoriesByPid" resultMap="CategoriesInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods_categories
+        WHERE
+        cat_pid = #{pid}
+        ORDER BY id ASC
+    </select>
+
+
+    <select id="queryCategoriesInfoById" resultMap="CategoriesInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods_categories
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertCategoriesInfo" parameterType="com.vueshop.manager.controller.http.request.CategoriesInfoRequest"
+      useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO shop_goods_categories (cat_name,cat_pid,cat_level,cat_deleted,state,create_time,update_time)
+       VALUES (#{categoriesInfo.cat_name},#{categoriesInfo.cat_pid},#{categoriesInfo.cat_level},0,1,NOW(),NOW())
+    </insert>
+
+    <delete id="deleteCategoriesById" parameterType="java.lang.Long">
+       DELETE FROM shop_goods_categories WHERE id = #{id}
+    </delete>
+
+    <update id="updateCategoriesInfo" parameterType="com.vueshop.manager.controller.http.request.CategoriesInfoRequest">
+        UPDATE shop_goods_categories
+        <set>
+            <if test=" categoriesInfo.catName != null and categoriesInfo.catName != ''">
+                cat_name =#{categoriesInfo.catName},
+            </if>
+            <if test=" categoriesInfo.catPid != null">
+                cat_pid =#{categoriesInfo.catPid},
+            </if>
+            <if test=" categoriesInfo.catLevel != null">
+                cat_level =#{categoriesInfo.catLevel},
+            </if>
+            <if test=" categoriesInfo.catDeleted != null">
+                cat_deleted =#{categoriesInfo.catDeleted},
+            </if>
+            <if test=" categoriesInfo.state != null">
+                state =#{categoriesInfo.state},
+            </if>
+            update_time = now()
+        </set>
+        WHERE id =#{categoriesInfo.id}
+    </update>
+
+</mapper>
