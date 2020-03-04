@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueshop.manager.dao.mapper.CategoriesAttrDao">
+
+    <resultMap id="CategoriesInfoMap" type="com.vueshop.manager.dao.model.CategoriesArrInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="attr_name" property="attr_name" jdbcType="VARCHAR"/>
+        <result column="cat_id" property="cat_id" jdbcType="BIGINT"/>
+        <result column="attr_sel" property="attr_sel" jdbcType="VARCHAR"/>
+        <result column="attr_write" property="attr_write" jdbcType="VARCHAR"/>
+        <result column="attr_vals" property="attr_vals" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="allColumn">
+       id,
+       attr_name,
+       cat_id,
+       attr_sel,
+       attr_write,
+       attr_vals,
+       create_time,
+       update_time
+    </sql>
+
+
+    <select id="queryCategoriesAttrById" resultMap="CategoriesInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods_categories_attr
+        WHERE id = #{id}
+    </select>
+
+    <select id="queryCategoriesAttrByIdAndSel" resultMap="CategoriesInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods_categories_attr
+        WHERE id = #{id}
+        AND attr_sel = #{sel}
+    </select>
+
+    <insert id="insertCategoriesAttr" parameterType="com.vueshop.manager.controller.http.request.CategoriesAttrRequest"
+      useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO shop_goods_categories_attr (attr_name,cat_id,attr_sel,attr_write,attr_vals,create_time,update_time)
+       VALUES (#{categoriesAttr.attr_name},#{categoriesAttr.cat_id},#{categoriesAttr.attr_sel},#{categoriesAttr.attr_write},#{categoriesAttr.attr_vals},NOW(),NOW())
+    </insert>
+
+    <delete id="deleteCategoriesAttrById" parameterType="java.lang.Long">
+       DELETE FROM shop_goods_categories_attr WHERE id = #{id}
+    </delete>
+
+    <update id="updateCategoriesAttrInfo"
+      parameterType="com.vueshop.manager.controller.http.request.CategoriesAttrRequest">
+        UPDATE shop_goods_categories_attr
+        <set>
+            <if test=" categoriesAttr.attr_name != null and categoriesAttr.attr_name != ''">
+                attr_name =#{categoriesAttr.attr_name},
+            </if>
+            <if test=" categoriesAttr.cat_id != null">
+                cat_id =#{categoriesAttr.cat_id},
+            </if>
+            <if test=" categoriesAttr.attr_sel != null and categoriesAttr.attr_sel != ''">
+                attr_sel =#{categoriesAttr.attr_sel},
+            </if>
+            <if test=" categoriesAttr.attr_write != null and categoriesAttr.attr_write != ''">
+                attr_write =#{categoriesAttr.attr_write},
+            </if>
+            <if test=" categoriesAttr.attr_vals != null and categoriesAttr.attr_vals != ''">
+                attr_vals =#{categoriesAttr.attr_vals},
+            </if>
+            update_time = now()
+        </set>
+        WHERE id =#{categoriesAttr.id}
+    </update>
+
+</mapper>

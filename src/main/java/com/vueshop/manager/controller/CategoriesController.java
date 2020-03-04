@@ -44,6 +44,7 @@ public class CategoriesController {
 				Integer.parseInt(pagesize));
 		CategoriesInfoQueryRequest categoriesInfoQueryRequest = new CategoriesInfoQueryRequest();
 		categoriesInfoQueryRequest.setType(type);
+		pageRequest.setQuery(categoriesInfoQueryRequest);
 		CategoriesInfoQueryResponse categoriesInfoQueryResponse = categoriesService
 				.queryCategoriesPage(pageRequest);
 
