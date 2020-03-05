@@ -15,5 +15,5 @@ import lombok.Data;
 @Data
 public class CategoriesInfoQueryResponse extends PageResponse {
 
-   private List<CategoriesInfo> data;
+   private List<CategoriesInfo> list;
 }

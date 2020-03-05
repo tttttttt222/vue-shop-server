@@ -37,7 +37,7 @@
             </if>
         </where>
         ORDER BY id ASC
-        <if test=" pageNo != null and pageNo != ''">
+        <if test=" pageNo != null">
             LIMIT #{pageNo} , #{pageSize}
         </if>
     </select>

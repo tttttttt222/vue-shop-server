@@ -42,7 +42,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 
 		res.setTotal(count);
 		res.setPagenum(pageRequest.getPagenum());
-		res.setData(categoriesInfos);
+		res.setList(categoriesInfos);
 		return res;
 	}
 
