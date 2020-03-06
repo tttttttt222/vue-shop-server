@@ -1,5 +1,6 @@
 package com.vueshop.manager.service;
 
+import com.vueshop.manager.controller.http.request.MenuInfoRequest;
 import com.vueshop.manager.controller.http.response.MenuInfoResponse;
 import com.vueshop.manager.dao.model.MenuInfo;
 import java.util.List;
@@ -26,4 +27,10 @@ public interface RightsService {
 	List<MenuInfo> queryMenuInfoByPid(Long roleId,Long rightId);
 
 	List<MenuInfo> queryMenuInfoByRoleId(Long roleId);
+
+	MenuInfoResponse addMenuInfo(MenuInfoRequest menuInfoRequest);
+
+	MenuInfoResponse deleteMenuById(Long id);
+
+	MenuInfoResponse updateMenuInfoById(MenuInfoRequest menuInfoRequest);
 }

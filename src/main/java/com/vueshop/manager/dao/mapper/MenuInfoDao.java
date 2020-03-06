@@ -1,5 +1,6 @@
 package com.vueshop.manager.dao.mapper;
 
+import com.vueshop.manager.controller.http.request.MenuInfoRequest;
 import com.vueshop.manager.dao.model.MenuInfo;
 
 import java.util.List;
@@ -23,6 +24,13 @@ public interface MenuInfoDao {
 	void deleteRights(@Param("roleId") Long roleId, @Param("rightId") Long rightId);
 
 	void deleteRightsByRId(@Param("roleId") Long roleId);
+
+	void insertRightsInfo(@Param("menuInfo")MenuInfoRequest menuInfoRequest);
+
+	void updateRightsInfo(@Param("menuInfo")MenuInfoRequest menuInfoRequest);
+
+	void deleteRightsById(Long id);
+
 
 
 }

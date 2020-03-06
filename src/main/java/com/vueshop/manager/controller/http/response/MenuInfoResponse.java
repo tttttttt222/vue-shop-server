@@ -6,31 +6,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 项目名称:vue-shop-manager
- * 描述:
- * 创建人:ryw
- * 创建时间:2020/2/15
+ * 项目名称:vue-shop-manager 描述: 创建人:ryw 创建时间:2020/2/15
  */
 @Data
 public class MenuInfoResponse {
 
-    //
-    private Long id;
+	//
+	private Long id;
 
-    //
-    private String authName;
+	//
+	private String authName;
 
-    //
-    private String path;
+	//
+	private String path;
 
-    //
-    private Long pid;
+	//
+	private Long pid;
 
-    private Integer level;
-    //
-    private Integer status;
+	private Integer level;
+	//
+	private Integer status;
 
-    private Integer display;
+	private Integer display;
+	//
+	private String createtime;
 
-    private List<MenuInfoResponse> children;
+	//
+	private String updatetime;
+
+	private List<MenuInfoResponse> children;
 }

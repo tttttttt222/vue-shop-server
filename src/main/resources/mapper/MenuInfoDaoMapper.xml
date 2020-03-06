@@ -100,4 +100,40 @@
         DELETE FROM user_role_menu WHERE role_id = #{roleId}
     </delete>
 
+
+    <insert id="insertRightsInfo" parameterType="com.vueshop.manager.controller.http.request.MenuInfoRequest">
+       INSERT INTO user_menus (auth_name,path,pid,status,display,level,createtime,updatetime)
+       VALUES (#{menuInfo.authName},#{menuInfo.path},#{menuInfo.pid},#{menuInfo.status},#{menuInfo.display},#{menuInfo.level},NOW(),NOW())
+    </insert>
+
+
+    <update id="updateRightsInfo" parameterType="com.vueshop.manager.controller.http.request.MenuInfoRequest">
+        UPDATE user_menus
+        <set>
+            <if test=" menuInfo.authName != null and menuInfo.authName != ''">
+                auth_name =#{menuInfo.authName},
+            </if>
+            <if test=" menuInfo.path != null and menuInfo.path != ''">
+                path =#{menuInfo.path},
+            </if>
+            <if test=" menuInfo.pid != null ">
+                pid =#{menuInfo.pid},
+            </if>
+            <if test=" menuInfo.status != null">
+                status =#{menuInfo.status},
+            </if>
+            <if test=" menuInfo.display != null">
+                display =#{menuInfo.display},
+            </if>
+            <if test=" menuInfo.level != null">
+                level =#{menuInfo.level},
+            </if>
+            updatetime = now()
+        </set>
+        WHERE id =#{menuInfo.id}
+    </update>
+
+    <delete id="deleteRightsById">
+        DELETE FROM user_menus WHERE id =#{id}
+    </delete>
 </mapper>
