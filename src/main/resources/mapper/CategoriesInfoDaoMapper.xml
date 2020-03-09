@@ -72,7 +72,7 @@
     </select>
 
     <insert id="insertCategoriesInfo" parameterType="com.vueshop.manager.controller.http.request.CategoriesInfoRequest"
-      useGeneratedKeys="true" keyProperty="id">
+      useGeneratedKeys="true" keyProperty="categoriesInfo.cat_id">
        INSERT INTO shop_goods_categories (cat_name,cat_pid,cat_level,cat_deleted,state,create_time,update_time)
        VALUES (#{categoriesInfo.cat_name},#{categoriesInfo.cat_pid},#{categoriesInfo.cat_level},0,1,NOW(),NOW())
     </insert>
