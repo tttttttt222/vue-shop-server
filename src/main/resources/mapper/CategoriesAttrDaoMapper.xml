@@ -37,7 +37,7 @@
         SELECT
         <include refid="allColumn"/>
         FROM shop_goods_categories_attr
-        WHERE id = #{id}
+        WHERE cat_id = #{catId}
         AND attr_sel = #{sel}
     </select>
 

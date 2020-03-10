@@ -2,6 +2,7 @@ package com.vueshop.manager.dao.mapper;
 
 import com.vueshop.manager.controller.http.request.CategoriesAttrRequest;
 import com.vueshop.manager.dao.model.CategoriesArrInfo;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -11,7 +12,7 @@ public interface CategoriesAttrDao {
 
 	CategoriesArrInfo queryCategoriesAttrById(Long id);
 
-	CategoriesArrInfo queryCategoriesAttrByIdAndSel(@Param("id")Long id,@Param("sel")String sel);
+	List<CategoriesArrInfo> queryCategoriesAttrByIdAndSel(@Param("catId")Long catId,@Param("sel")String sel);
 
 	void insertCategoriesAttr(@Param("categoriesAttr") CategoriesAttrRequest categoriesInfoRequest);
 

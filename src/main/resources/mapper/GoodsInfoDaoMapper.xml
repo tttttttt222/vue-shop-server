@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueshop.manager.dao.mapper.GoodsInfoDao">
+
+    <resultMap id="GoodsInfoMap" type="com.vueshop.manager.dao.model.GoodsInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL"/>
+        <result column="goods_number" property="goodsNumber" jdbcType="INTEGER"/>
+        <result column="goods_weight" property="goodsWeight" jdbcType="DECIMAL"/>
+        <result column="goods_state" property="goodsState" jdbcType="TINYINT"/>
+        <result column="hot_mumber" property="hotMumber" jdbcType="INTEGER"/>
+        <result column="is_promote" property="isPromote" jdbcType="TINYINT"/>
+        <result column="goods_small_logo" property="goodsSmallLogo" jdbcType="VARCHAR"/>
+        <result column="goods_big_logo" property="goodsBigLogo" jdbcType="VARCHAR"/>
+        <result column="goods_introduce" property="goodsIntroduce" jdbcType="VARCHAR"/>
+        <result column="is_del" property="isDel" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="allColumn">
+        id,
+        goods_name,
+        goods_price,
+        goods_number,
+        goods_weight,
+        goods_state,
+        hot_mumber,
+        is_promote,
+        goods_small_logo,
+        goods_big_logo,
+        goods_introduce,
+        is_del,
+        create_time,
+        update_time,
+        delete_time
+    </sql>
+
+
+    <select id="queryGoodsPage" resultMap="GoodsInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods
+        <where>
+            <if test=" query.goodsName != null and query.goodsName != ''">
+                AND goods_name =#{query.goodsName}
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{pageNo} , #{pageSize}
+    </select>
+
+    <select id="queryGoodsPageCount" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM shop_goods
+        <where>
+            <if test=" query.goodsName != null and query.goodsName != ''">
+                AND goods_name =#{query.goodsName}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryGoodsInfoById" resultMap="GoodsInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM shop_goods
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertGoodsInfo" parameterType="com.vueshop.manager.controller.http.request.GoodsInfoRequest"
+      useGeneratedKeys="true" keyProperty="goodsInfo.id">
+       INSERT INTO shop_goods (
+        goods_name,
+        goods_price,
+        goods_number,
+        goods_weight,
+        goods_state,
+        hot_mumber,
+        is_promote,
+        goods_small_logo,
+        goods_big_logo,
+        goods_introduce,
+        is_del,
+        create_time,
+        update_time)
+       VALUES (
+       #{goodsInfo.goodsName},
+       #{goodsInfo.goodsPrice},
+       #{goodsInfo.goodsNumber},
+       #{goodsInfo.goodsWeight},
+       #{goodsInfo.goodsState},
+       #{goodsInfo.hotMumber},
+       #{goodsInfo.isPromote},
+       #{goodsInfo.goodsSmallLogo},
+       #{goodsInfo.goodsBigLogo},
+       #{goodsInfo.goodsIntroduce},
+       #{goodsInfo.isDel},
+       NOW(),
+       NOW())
+    </insert>
+
+    <delete id="deleteGoodsById" parameterType="java.lang.Long">
+       DELETE FROM shop_goods WHERE id = #{id}
+    </delete>
+
+    <update id="updateGoodsInfo" parameterType="com.vueshop.manager.controller.http.request.GoodsInfoRequest">
+        UPDATE shop_goods
+        <set>
+            <if test=" goodsInfo.goodsName != null and goodsInfo.goodsName != ''">
+                 goods_name =#{goodsInfo.goodsName},
+            </if>
+            <if test=" goodsInfo.goodsPrice != null">
+                 goods_price =#{goodsInfo.goodsPrice},
+            </if>
+            <if test=" goodsInfo.goodsNumber != null">
+                 goods_number =#{goodsInfo.goodsNumber},
+            </if>
+            <if test=" goodsInfo.goodsWeight != null">
+                 goods_weight =#{goodsInfo.goodsWeight},
+            </if>
+            <if test=" goodsInfo.goodsState != null">
+                 goods_state =#{goodsInfo.goodsState},
+            </if>
+            <if test=" goodsInfo.hotMumber != null">
+                 hot_mumber =#{goodsInfo.hotMumber},
+            </if>
+            <if test=" goodsInfo.isPromote != null">
+                 is_promote =#{goodsInfo.isPromote},
+            </if>
+            <if test=" goodsInfo.goodsSmallLogo != null and goodsInfo.goodsSmallLogo != ''">
+                 goods_small_logo =#{goodsInfo.goodsSmallLogo},
+            </if>
+            <if test=" goodsInfo.goodsBigLogo != null and goodsInfo.goodsBigLogo != ''">
+                 goods_big_logo =#{goodsInfo.goodsBigLogo},
+            </if>
+            <if test=" goodsInfo.goodsIntroduce != null and goodsInfo.goodsIntroduce != ''">
+                 goods_introduce =#{goodsInfo.goodsIntroduce},
+            </if>
+            <if test=" goodsInfo.isDel != null">
+                 is_del =#{goodsInfo.isDel},
+            </if>
+            <if test=" goodsInfo.deleteTime != null">
+                 delete_time =#{goodsInfo.deleteTime},
+            </if>
+            update_time = now()
+        </set>
+        WHERE id =#{goodsInfo.id}
+    </update>
+
+</mapper>
