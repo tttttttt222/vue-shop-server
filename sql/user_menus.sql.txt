@@ -53,3 +53,7 @@ INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, 
 INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('37', '查看数据', NULL, '13', '1', '0', '2', '2020-02-23 10:39:50', '2020-02-23 10:39:51');
 
 INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('38', '权限配置', 'rightesDeploy', '2', '1', '1', '2', '2020-03-06 10:47:17', '2020-03-06 10:47:19');
+
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('39', '历史事件', NULL, '0', '1', '1', '1', '2020-03-11 16:31:14', '2020-03-11 16:31:16');
+INSERT INTO `vueshop`.`user_menus` (`id`, `auth_name`, `path`, `pid`, `status`, `display`, `level`, `createtime`, `updatetime`) VALUES ('40', '历史事件表', 'historyBrief', '39', '1', '1', '2', '2020-03-11 16:32:22', '2020-03-11 16:32:23');
+
