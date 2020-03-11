@@ -1,0 +1,16 @@
+CREATE TABLE `history_brief_event_cate` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `event_cate_name` varchar(255) NOT NULL,
+  `pid` bigint(20) NOT NULL,
+  `level` int(11) DEFAULT NULL,
+  `state` tinyint(4) NOT NULL DEFAULT '1',
+  `cate_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:地区 1:人物',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+INSERT INTO `vueshop`.`history_brief_event_cate` (`id`, `event_cate_name`, `pid`, `level`, `state`, `cate_type`, `create_time`, `update_time`) VALUES ('1', '晚清', '0', '0', '1', '0', '2020-03-11 15:13:05', '2020-03-11 15:15:41');
+INSERT INTO `vueshop`.`history_brief_event_cate` (`id`, `event_cate_name`, `pid`, `level`, `state`, `cate_type`, `create_time`, `update_time`) VALUES ('2', '日本', '0', '0', '1', '0', '2020-03-11 15:13:23', '2020-03-11 15:15:43');
+INSERT INTO `vueshop`.`history_brief_event_cate` (`id`, `event_cate_name`, `pid`, `level`, `state`, `cate_type`, `create_time`, `update_time`) VALUES ('3', '朝鲜', '0', '0', '1', '0', '2020-03-11 15:14:31', '2020-03-11 15:15:42');
+INSERT INTO `vueshop`.`history_brief_event_cate` (`id`, `event_cate_name`, `pid`, `level`, `state`, `cate_type`, `create_time`, `update_time`) VALUES ('4', '袁世凯', '0', '0', '1', '1', '2020-03-11 15:17:08', '2020-03-11 15:17:08');

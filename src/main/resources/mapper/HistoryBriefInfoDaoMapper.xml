@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueshop.manager.dao.mapper.HistoryBriefDao">
+
+    <resultMap id="HistoryBriefInfoMap" type="com.vueshop.manager.dao.model.HistoryBriefInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="year" property="year" jdbcType="BIGINT"/>
+        <result column="month" property="month" jdbcType="BIGINT"/>
+        <result column="date" property="date" jdbcType="BIGINT"/>
+        <result column="continent" property="continent" jdbcType="INTEGER"/>
+        <result column="contry" property="contry" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="main_person" property="mainPerson" jdbcType="VARCHAR"/>
+        <result column="period" property="period" jdbcType="VARCHAR"/>
+        <result column="event_name" property="eventName" jdbcType="VARCHAR"/>
+        <result column="event_id" property="eventId" jdbcType="BIGINT"/>
+        <result column="display" property="display" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="allColumn">
+        id,
+        `year`,
+        `month`,
+        `date`,
+        continent,
+        contry,
+        city,
+        main_person,
+        period,
+        event_name,
+        event_id,
+        display,
+        create_time,
+        update_time
+    </sql>
+
+
+    <select id="queryHistoryBriefPage" resultMap="HistoryBriefInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM history_brief
+        <where>
+            <if test=" query.year != null">
+                AND `year` =#{query.year}
+            </if>
+            <if test=" query.month != null">
+                AND `month` =#{query.month}
+            </if>
+            <if test=" query.date != null">
+                AND `date` =#{query.date}
+            </if>
+            <if test=" query.continent != null">
+                AND continent =#{query.continent}
+            </if>
+            <if test=" query.contry != null and query.contry != ''">
+                AND contry =#{query.contry}
+            </if>
+            <if test=" query.city != null and query.city != ''">
+                AND city =#{query.city}
+            </if>
+            <if test=" query.yearStart != null">
+                AND `year` &gt;= #{query.yearStart}
+            </if>
+            <if test=" query.yearEnd != null">
+                AND `year` &lt; #{query.yearEnd}
+            </if>
+            AND display = 1
+        </where>
+        ORDER BY `year` ASC
+        <if test=" pageNo != null">
+            LIMIT #{pageNo} , #{pageSize}
+        </if>
+    </select>
+
+    <select id="queryHistoryBriefPageCount" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM history_brief
+        <where>
+            <if test=" query.year != null">
+                AND `year` =#{query.year}
+            </if>
+            <if test=" query.month != null">
+                AND `month` =#{query.month}
+            </if>
+            <if test=" query.date != null">
+                AND `date` =#{query.date}
+            </if>
+            <if test=" query.continent != null">
+                AND continent =#{query.continent}
+            </if>
+            <if test=" query.contry != null and query.contry != ''">
+                AND contry =#{query.contry}
+            </if>
+            <if test=" query.city != null and query.city != ''">
+                AND city =#{query.city}
+            </if>
+            <if test=" query.yearStart != null">
+                AND `year` &gt;= #{query.yearStart}
+            </if>
+            <if test=" query.yearEnd != null">
+                AND `year` &lt; #{query.yearEnd}
+            </if>
+            AND display = 1
+        </where>
+    </select>
+
+
+    <select id="queryHistoryBriefInfoById" resultMap="HistoryBriefInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM history_brief
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertHistoryBriefInfo"
+      parameterType="com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest"
+      useGeneratedKeys="true" keyProperty="historyBriefInfo.id">
+       INSERT INTO history_brief (
+            id,
+            `year`,
+            `month`,
+            `date`,
+            continent,
+            contry,
+            city,
+            main_person,
+            period,
+            event_name,
+            event_id,
+            display,
+            create_time,
+            update_time)
+       VALUES (
+       #{historyBriefInfo.year},
+       #{historyBriefInfo.month},
+       #{historyBriefInfo.date},
+       #{historyBriefInfo.continent},
+       #{historyBriefInfo.contry},
+       #{historyBriefInfo.city},
+       #{historyBriefInfo.mainPerson},
+       #{historyBriefInfo.period},
+       #{historyBriefInfo.eventName},
+       #{historyBriefInfo.eventId},
+       #{historyBriefInfo.display},
+       NOW(),
+       NOW())
+    </insert>
+
+    <delete id="deleteHistoryBriefById" parameterType="java.lang.Long">
+       DELETE FROM history_brief WHERE id = #{id}
+    </delete>
+
+    <update id="updateHistoryBriefInfo"
+      parameterType="com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest">
+        UPDATE history_brief
+        <set>
+            <if test=" historyBriefInfo.year != null">
+                year =#{historyBriefInfo.year}
+            </if>
+            <if test=" historyBriefInfo.month != null">
+                month =#{historyBriefInfo.month}
+            </if>
+            <if test=" historyBriefInfo.date != null">
+                date =#{historyBriefInfo.date}
+            </if>
+            <if test=" historyBriefInfo.continent != null">
+                continent =#{historyBriefInfo.continent}
+            </if>
+            <if test=" historyBriefInfo.contry != null and historyBriefInfo.contry != ''">
+                contry =#{historyBriefInfo.contry}
+            </if>
+            <if test=" historyBriefInfo.city != null and historyBriefInfo.city != ''">
+                city =#{historyBriefInfo.city}
+            </if>
+            <if test=" historyBriefInfo.mainPerson != null and historyBriefInfo.mainPerson != ''">
+                main_person =#{historyBriefInfo.mainPerson}
+            </if>
+            <if test=" historyBriefInfo.period != null and historyBriefInfo.period != ''">
+                period =#{historyBriefInfo.period}
+            </if>
+            <if test=" historyBriefInfo.eventName != null and historyBriefInfo.eventName != ''">
+                event_name =#{historyBriefInfo.eventName}
+            </if>
+            <if test=" historyBriefInfo.eventId != null">
+                event_id =#{historyBriefInfo.eventId}
+            </if>
+            <if test=" historyBriefInfo.display != null">
+                display =#{historyBriefInfo.display}
+            </if>
+            update_time = now()
+        </set>
+        WHERE id =#{historyBriefInfo.id}
+    </update>
+
+</mapper>

@@ -1,9 +1,6 @@
 package com.vueshop.manager.dao.mapper;
 
-import com.vueshop.manager.controller.http.request.CategoriesInfoQueryRequest;
-import com.vueshop.manager.controller.http.request.CategoriesInfoRequest;
 import com.vueshop.manager.controller.http.request.GoodsInfoRequest;
-import com.vueshop.manager.dao.model.CategoriesInfo;
 import com.vueshop.manager.dao.model.GoodsInfo;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
