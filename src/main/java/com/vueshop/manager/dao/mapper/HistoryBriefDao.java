@@ -1,6 +1,7 @@
 package com.vueshop.manager.dao.mapper;
 
 import com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest;
+import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.dao.model.HistoryBriefInfo;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -10,10 +11,10 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface HistoryBriefDao {
 
-	List<HistoryBriefInfo> queryHistoryBriefPage(@Param("query") HistoryBriefInfoRequest historyBriefInfoRequest,
+	List<HistoryBriefInfo> queryHistoryBriefPage(@Param("query") HistoryBriefQueryRequest historyBriefQueryRequest,
 			@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
 
-	Integer queryHistoryBriefPageCount(@Param("query") HistoryBriefInfoRequest historyBriefInfoRequest);
+	Integer queryHistoryBriefPageCount(@Param("query") HistoryBriefQueryRequest historyBriefQueryRequest);
 
 	HistoryBriefInfo queryHistoryBriefInfoById(Long id);
 

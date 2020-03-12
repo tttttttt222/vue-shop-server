@@ -1,6 +1,7 @@
 package com.vueshop.manager.controller.http.response;
 
 import com.vueshop.manager.dao.model.HistoryBriefInfo;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -12,13 +13,11 @@ import lombok.Data;
 @Data
 public class HistoryBriefInfoColletResponse {
 
-    //
-    private Long id;
 
     //
     private Long year;
 
-    private HistoryBriefInfo historyBriefInfo;
+    private List<HistoryBriefInfo> historyBriefInfos;
 
 
 }

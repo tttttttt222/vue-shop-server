@@ -1,5 +1,6 @@
 package com.vueshop.manager.controller.http.request;
 
+import com.vueshop.manager.controller.http.request.base.PageBaseRequest;
 import lombok.Data;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Data;
  * 创建时间:2020/2/15
  */
 @Data
-public class HistoryBriefInfoRequest {
+public class HistoryBriefInfoRequest{
 
     //
     private Long id;
