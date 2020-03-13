@@ -33,10 +33,9 @@ public class HistoryBriefController {
 			@RequestBody HistoryBriefQueryRequest historyBriefQueryRequest) {
 		HttpResponse<HistoryBriefInfoQueryResponse> httpResponse = new HttpResponse<>(new Meta());
 
-		PageRequest<HistoryBriefQueryRequest> pageRequest = new PageRequest<>();
+		PageRequest<HistoryBriefQueryRequest> pageRequest = new PageRequest<>(historyBriefQueryRequest.getPagenum(),
+				historyBriefQueryRequest.getPagesize());
 		pageRequest.setQuery(historyBriefQueryRequest);
-		pageRequest.setPagenum(historyBriefQueryRequest.getPagenum());
-		pageRequest.setPagesize(historyBriefQueryRequest.getPagesize());
 
 		HistoryBriefInfoQueryResponse historyBriefInfoQueryResponse = historyBriefService
 				.queryHistoryBriefPage(pageRequest);

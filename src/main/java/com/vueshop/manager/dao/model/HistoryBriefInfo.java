@@ -38,6 +38,8 @@ public class HistoryBriefInfo {
 	//
 	private String eventName;
 
+	private String eventBrief;
+
 	//
 	private Long eventId;
 

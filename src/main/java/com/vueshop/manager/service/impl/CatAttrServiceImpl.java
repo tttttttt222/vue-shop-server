@@ -33,7 +33,7 @@ public class CatAttrServiceImpl implements CatAttrService {
 	@Override
 	public List<CategoriesArrInfo> queryCategoriesAttrByIdAndSel(CategoriesAttrRequest request) {
 		List<CategoriesArrInfo> categoriesArrInfo = categoriesAttrDao
-				.queryCategoriesAttrByIdAndSel(request.getId(), request.getAttr_sel());
+				.queryCategoriesAttrByIdAndSel(request.getCat_id(), request.getAttr_sel());
 		return categoriesArrInfo;
 	}
 

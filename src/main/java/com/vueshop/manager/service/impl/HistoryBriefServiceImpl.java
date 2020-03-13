@@ -1,26 +1,19 @@
 package com.vueshop.manager.service.impl;
 
-import com.vueshop.manager.controller.http.request.CategoriesInfoQueryRequest;
-import com.vueshop.manager.controller.http.request.CategoriesInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
-import com.vueshop.manager.controller.http.response.CategoriesInfoQueryResponse;
-import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
+import com.vueshop.manager.controller.http.response.HistoryBriefContinentResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoColletResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
-import com.vueshop.manager.dao.mapper.CategoriesInfoDao;
 import com.vueshop.manager.dao.mapper.HistoryBriefDao;
-import com.vueshop.manager.dao.model.CategoriesInfo;
 import com.vueshop.manager.dao.model.HistoryBriefInfo;
 import com.vueshop.manager.service.HistoryBriefService;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +41,38 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 		for (HistoryBriefInfo historyBriefInfo : historyBriefInfos) {
 			HistoryBriefInfoColletResponse historyBrief = yearDepMap.get(historyBriefInfo.getYear());
 			if (historyBrief != null) {
-				historyBrief.getHistoryBriefInfos().add(historyBriefInfo);
+				boolean exsist = false;
+				for (HistoryBriefContinentResponse continent : historyBrief.getContinents()) {
+					if (continent.getContinent() == historyBriefInfo.getContinent()) {
+						continent.getHistoryBriefInfos().add(historyBriefInfo);
+						exsist = true;
+						break;
+					}
+				}
+				if (!exsist) {
+					List<HistoryBriefContinentResponse> continents = historyBrief.getContinents();
+					HistoryBriefContinentResponse historyBriefContinentResponse = new HistoryBriefContinentResponse();
+					ArrayList<HistoryBriefInfo> hlist = new ArrayList<>();
+					hlist.add(historyBriefInfo);
+					historyBriefContinentResponse.setHistoryBriefInfos(hlist);
+					historyBriefContinentResponse.setContinent(historyBriefInfo.getContinent());
+					continents.add(historyBriefContinentResponse);
+				}
 				count--;
 			} else {
 				HistoryBriefInfoColletResponse historyBriefInfoColletResponse = new HistoryBriefInfoColletResponse();
+				//先创建州数组
+				ArrayList<HistoryBriefContinentResponse> clist = new ArrayList<>();
+				HistoryBriefContinentResponse historyBriefContinentResponse = new HistoryBriefContinentResponse();
+				clist.add(historyBriefContinentResponse);
+				//加入具体信息
 				ArrayList<HistoryBriefInfo> hlist = new ArrayList<>();
 				hlist.add(historyBriefInfo);
-				historyBriefInfoColletResponse.setHistoryBriefInfos(hlist);
+				//赋值
+				historyBriefContinentResponse.setContinent(historyBriefInfo.getContinent());
+				historyBriefContinentResponse.setHistoryBriefInfos(hlist);
 				historyBriefInfoColletResponse.setYear(historyBriefInfo.getYear());
+				historyBriefInfoColletResponse.setContinents(clist);
 				yearDepMap.put(historyBriefInfo.getYear(), historyBriefInfoColletResponse);
 			}
 		}
