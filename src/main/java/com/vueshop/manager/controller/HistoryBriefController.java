@@ -1,9 +1,10 @@
 package com.vueshop.manager.controller;
 
-import com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest;
+import com.vueshop.manager.controller.http.request.HistoryBriefEventInfoAddRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
+import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
 import com.vueshop.manager.controller.http.response.base.HttpResponse;
 import com.vueshop.manager.controller.http.response.base.Meta;
 import com.vueshop.manager.service.HistoryBriefService;
@@ -29,7 +30,7 @@ public class HistoryBriefController {
 
 	@PostMapping("historyBrief/query")
 	@ResponseBody
-	public HttpResponse<HistoryBriefInfoQueryResponse> queryCategoriesPage(HttpServletRequest request,
+	public HttpResponse<HistoryBriefInfoQueryResponse> queryHistoryBriefPage(HttpServletRequest request,
 			@RequestBody HistoryBriefQueryRequest historyBriefQueryRequest) {
 		HttpResponse<HistoryBriefInfoQueryResponse> httpResponse = new HttpResponse<>(new Meta());
 
@@ -45,25 +46,29 @@ public class HistoryBriefController {
 		return httpResponse;
 	}
 
-//    @PostMapping("categories")
-//    @ResponseBody
-//    public HttpResponse<CategoriesInfoResponse> addCategories(HttpServletRequest request,
-//                                                              @RequestBody CategoriesInfoRequest categoriesInfoRequest) {
-//        HttpResponse<CategoriesInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-//
-//        CategoriesInfoResponse categoriesInfoResponse = categoriesService.insertCategories(categoriesInfoRequest);
-//
-//        if (categoriesInfoResponse == null) {
-//            httpResponse.getMeta().setMsg("商品分类创建成功");
-//            httpResponse.getMeta().setStatus(400);
-//            return httpResponse;
-//        }
-//
-//        httpResponse.setData(categoriesInfoResponse);
-//        httpResponse.getMeta().setMsg("商品分类创建失败");
-//        httpResponse.getMeta().setStatus(200);
-//        return httpResponse;
-//    }
+	@PostMapping("historyBrief/add")
+	@ResponseBody
+	public HttpResponse<HistoryBriefInfoResponse> addHistoryBrief(HttpServletRequest request,
+			@RequestBody HistoryBriefEventInfoAddRequest addRequest) {
+		HttpResponse<HistoryBriefInfoResponse> httpResponse = new HttpResponse<>(new Meta());
+
+		if (addRequest.getHistoryBrief().getDisplay() == null) {
+			addRequest.getHistoryBrief().setDisplay(1);
+		}
+		HistoryBriefInfoResponse historyBriefInfoResponse = historyBriefService
+				.insertHistoryBrief(addRequest.getHistoryBrief(), addRequest.getHistoryEvent());
+
+		if (historyBriefInfoResponse == null) {
+			httpResponse.getMeta().setMsg("历史简介创建成功");
+			httpResponse.getMeta().setStatus(400);
+			return httpResponse;
+		}
+
+		httpResponse.setData(historyBriefInfoResponse);
+		httpResponse.getMeta().setMsg("历史简介创建失败");
+		httpResponse.getMeta().setStatus(200);
+		return httpResponse;
+	}
 //
 //
 //    @GetMapping("categories/{id}")

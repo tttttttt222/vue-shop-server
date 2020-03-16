@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueshop.manager.dao.mapper.HistoryEventDao">
+
+    <resultMap id="HistoryEventInfoMap" type="com.vueshop.manager.dao.model.HistoryBriefEventInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="event_title" property="eventTitle" jdbcType="VARCHAR"/>
+        <result column="event_brief" property="eventBrief" jdbcType="VARCHAR"/>
+        <result column="event_contennt" property="eventContennt" jdbcType="VARCHAR"/>
+        <result column="event_cate_ids" property="eventCateIds" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="allColumn">
+        id,
+        event_title,
+        event_brief,
+        event_contennt,
+        event_cate_ids,
+        create_time,
+        update_time
+    </sql>
+
+
+
+    <select id="queryHistoryEventById" resultMap="HistoryEventInfoMap">
+        SELECT
+        <include refid="allColumn"/>
+        FROM history_brief_event
+        WHERE id = #{id}
+    </select>
+
+
+    <insert id="insertHistoryEventInfo"
+      parameterType="com.vueshop.manager.controller.http.request.HistoryEventInfoRequest"
+      useGeneratedKeys="true" keyProperty="historyEvent.id">
+       INSERT INTO history_brief_event (
+            event_title,
+            event_brief,
+            event_contennt,
+            event_cate_ids,
+            create_time,
+            update_time)
+       VALUES (
+       #{historyEvent.eventTitle},
+       #{historyEvent.eventBrief},
+       #{historyEvent.eventContennt},
+       #{historyEvent.eventCateIds},
+       NOW(),
+       NOW())
+    </insert>
+
+    <delete id="deleteHistoryEventById" parameterType="java.lang.Long">
+       DELETE FROM history_brief_event WHERE id = #{id}
+    </delete>
+
+    <update id="updateHistoryEventInfo"
+      parameterType="com.vueshop.manager.controller.http.request.HistoryEventInfoRequest">
+        UPDATE history_brief_event
+        <set>
+            <if test=" historyEvent.id != null">
+                id =#{historyEvent.id}
+            </if>
+            <if test=" historyEvent.eventTitle != null and historyEvent.eventTitle != ''">
+                event_title =#{historyEvent.eventTitle}
+            </if>
+            <if test=" historyEvent.eventBrief != null and historyEvent.eventBrief != ''">
+                event_brief =#{historyEvent.eventBrief}
+            </if>
+            <if test=" historyEvent.eventContennt != null and historyEvent.eventContennt != ''">
+                event_contennt =#{historyEvent.eventContennt}
+            </if>
+            <if test=" historyEvent.eventCateIds != null and historyEvent.eventCateIds != ''">
+                event_cate_ids =#{historyEvent.eventCateIds}
+            </if>
+            <if test=" historyEvent.createTime != null">
+                create_time =#{historyEvent.createTime}
+            </if>
+            <if test=" historyEvent.updateTime != null">
+                update_time =#{historyEvent.updateTime}
+            </if>
+            update_time = now()
+        </set>
+        WHERE id =#{historyEvent.id}
+    </update>
+
+</mapper>

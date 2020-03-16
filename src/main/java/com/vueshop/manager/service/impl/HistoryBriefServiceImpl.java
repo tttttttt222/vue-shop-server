@@ -2,12 +2,14 @@ package com.vueshop.manager.service.impl;
 
 import com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
+import com.vueshop.manager.controller.http.request.HistoryEventInfoRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
 import com.vueshop.manager.controller.http.response.HistoryBriefContinentResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoColletResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
 import com.vueshop.manager.dao.mapper.HistoryBriefDao;
+import com.vueshop.manager.dao.mapper.HistoryEventDao;
 import com.vueshop.manager.dao.model.HistoryBriefInfo;
 import com.vueshop.manager.service.HistoryBriefService;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * 项目名称:vue-shop-manager 描述: 创建人:ryw 创建时间:2020/2/14
@@ -28,6 +32,14 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 
 	@Autowired
 	private HistoryBriefDao historyBriefDao;
+
+
+	@Autowired
+	private HistoryEventDao historyEventDao;
+
+
+	@Autowired
+	private TransactionTemplate transactionTemplate;
 
 	@Override
 	public HistoryBriefInfoQueryResponse queryHistoryBriefPage(PageRequest<HistoryBriefQueryRequest> pageRequest) {
@@ -89,12 +101,18 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 
 
 	@Override
-	public HistoryBriefInfoResponse insertHistoryBrief(HistoryBriefInfoRequest historyBriefInfoRequest) {
+	public HistoryBriefInfoResponse insertHistoryBrief(HistoryBriefInfoRequest historyBriefInfoRequest,
+			HistoryEventInfoRequest historyEventInfoRequest) {
 		HistoryBriefInfoResponse historyBriefInfoResponse = new HistoryBriefInfoResponse();
 		try {
-			historyBriefDao.insertHistoryBriefInfo(historyBriefInfoRequest);
+			transactionTemplate.execute((TransactionCallback) transactionStatus -> {
+				historyEventDao.insertHistoryEventInfo(historyEventInfoRequest);
+				historyBriefInfoRequest.setEventId(historyEventInfoRequest.getId());
+				historyBriefDao.insertHistoryBriefInfo(historyBriefInfoRequest);
+				return null;
+			});
 		} catch (Exception e) {
-			log.error("添加分类失败", e.getMessage());
+			log.error("添加历史简介失败", e.getMessage());
 			return null;
 		}
 		BeanUtils.copyProperties(historyBriefInfoRequest, historyBriefInfoResponse);
@@ -108,7 +126,7 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 		try {
 			historyBriefDao.deleteHistoryBriefById(id);
 		} catch (Exception e) {
-			log.error("删除失败", e.getMessage());
+			log.error("删除历史简介失败", e.getMessage());
 			return null;
 		}
 		return historyBriefInfoResponse;
@@ -120,7 +138,7 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 		try {
 			historyBriefDao.updateHistoryBriefInfo(historyBriefInfoRequest);
 		} catch (Exception e) {
-			log.error("更新失败", e.getMessage());
+			log.error("更新历史简介失败", e.getMessage());
 			return null;
 		}
 		BeanUtils.copyProperties(historyBriefInfoRequest, historyBriefInfoResponse);

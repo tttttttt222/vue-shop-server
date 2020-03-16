@@ -122,7 +122,6 @@
       parameterType="com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest"
       useGeneratedKeys="true" keyProperty="historyBriefInfo.id">
        INSERT INTO history_brief (
-            id,
             `year`,
             `month`,
             `date`,

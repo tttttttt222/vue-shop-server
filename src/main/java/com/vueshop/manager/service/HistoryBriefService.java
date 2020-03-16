@@ -2,6 +2,7 @@ package com.vueshop.manager.service;
 
 import com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
+import com.vueshop.manager.controller.http.request.HistoryEventInfoRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
@@ -14,7 +15,8 @@ public interface HistoryBriefService {
 
 	HistoryBriefInfoQueryResponse queryHistoryBriefPage(PageRequest<HistoryBriefQueryRequest> pageRequest);
 
-	HistoryBriefInfoResponse insertHistoryBrief(HistoryBriefInfoRequest historyBriefInfoRequest);
+	HistoryBriefInfoResponse insertHistoryBrief(HistoryBriefInfoRequest historyBriefInfoRequest,
+			HistoryEventInfoRequest historyEventInfoRequest);
 
 	HistoryBriefInfoResponse deleteHistoryBriefById(Long id);
 
