@@ -3,14 +3,18 @@ package com.vueshop.manager.controller;
 import com.vueshop.manager.controller.http.request.HistoryBriefEventInfoAddRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
+import com.vueshop.manager.controller.http.response.CategoriesInfoResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
+import com.vueshop.manager.controller.http.response.HistoryEventInfoResponse;
 import com.vueshop.manager.controller.http.response.base.HttpResponse;
 import com.vueshop.manager.controller.http.response.base.Meta;
 import com.vueshop.manager.service.HistoryBriefService;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,26 +73,26 @@ public class HistoryBriefController {
 		httpResponse.getMeta().setStatus(200);
 		return httpResponse;
 	}
-//
-//
-//    @GetMapping("categories/{id}")
-//    @ResponseBody
-//    public HttpResponse<CategoriesInfoResponse> queryCategoriesById(HttpServletRequest request, @PathVariable long id) {
-//        HttpResponse<CategoriesInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-//
-//        CategoriesInfoResponse categoriesInfoResponse = categoriesService.queryCategoriesInfoById(id);
-//
-//        if (categoriesInfoResponse == null) {
-//            httpResponse.getMeta().setMsg("查询失败");
-//            httpResponse.getMeta().setStatus(400);
-//            return httpResponse;
-//        }
-//
-//        httpResponse.setData(categoriesInfoResponse);
-//        httpResponse.getMeta().setMsg("查询成功");
-//        httpResponse.getMeta().setStatus(200);
-//        return httpResponse;
-//    }
+
+
+    @GetMapping("historyBriefEvent/{id}")
+    @ResponseBody
+    public HttpResponse<HistoryEventInfoResponse> queryHistoryBriefDetialById(HttpServletRequest request, @PathVariable long id) {
+        HttpResponse<HistoryEventInfoResponse> httpResponse = new HttpResponse<>(new Meta());
+
+		HistoryEventInfoResponse historyEventInfoResponse=historyBriefService.queryHistoryBriefDetialById(id);
+
+        if (historyEventInfoResponse == null) {
+            httpResponse.getMeta().setMsg("查询失败");
+            httpResponse.getMeta().setStatus(400);
+            return httpResponse;
+        }
+
+        httpResponse.setData(historyEventInfoResponse);
+        httpResponse.getMeta().setMsg("查询成功");
+        httpResponse.getMeta().setStatus(200);
+        return httpResponse;
+    }
 //
 //
 //    @PutMapping("categories/{id}")

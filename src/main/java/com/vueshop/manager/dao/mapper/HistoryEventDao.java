@@ -1,7 +1,7 @@
 package com.vueshop.manager.dao.mapper;
 
 import com.vueshop.manager.controller.http.request.HistoryEventInfoRequest;
-import com.vueshop.manager.dao.model.HistoryBriefInfo;
+import com.vueshop.manager.dao.model.HistoryBriefEventInfo;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface HistoryEventDao {
 
-	HistoryBriefInfo queryHistoryEventById(Long id);
+	HistoryBriefEventInfo queryHistoryEventById(Long id);
 
 	void insertHistoryEventInfo(@Param("historyEvent") HistoryEventInfoRequest historyEventInfoRequest);
 

@@ -8,8 +8,10 @@ import com.vueshop.manager.controller.http.response.HistoryBriefContinentRespons
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoColletResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
+import com.vueshop.manager.controller.http.response.HistoryEventInfoResponse;
 import com.vueshop.manager.dao.mapper.HistoryBriefDao;
 import com.vueshop.manager.dao.mapper.HistoryEventDao;
+import com.vueshop.manager.dao.model.HistoryBriefEventInfo;
 import com.vueshop.manager.dao.model.HistoryBriefInfo;
 import com.vueshop.manager.service.HistoryBriefService;
 import java.util.ArrayList;
@@ -143,6 +145,14 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 		}
 		BeanUtils.copyProperties(historyBriefInfoRequest, historyBriefInfoResponse);
 		return historyBriefInfoResponse;
+	}
+
+	@Override
+	public HistoryEventInfoResponse queryHistoryBriefDetialById(Long id) {
+		HistoryEventInfoResponse historyEventInfoResponse = new HistoryEventInfoResponse();
+		HistoryBriefEventInfo historyBriefEventInfo = historyEventDao.queryHistoryEventById(id);
+		BeanUtils.copyProperties(historyBriefEventInfo, historyEventInfoResponse);
+		return historyEventInfoResponse;
 	}
 
 }
