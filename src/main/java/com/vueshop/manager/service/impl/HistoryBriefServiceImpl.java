@@ -123,10 +123,14 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 
 
 	@Override
-	public HistoryBriefInfoResponse deleteHistoryBriefById(Long id) {
+	public HistoryBriefInfoResponse deleteHistoryBriefById(Long id, Long eventId) {
 		HistoryBriefInfoResponse historyBriefInfoResponse = new HistoryBriefInfoResponse();
 		try {
-			historyBriefDao.deleteHistoryBriefById(id);
+			transactionTemplate.execute((TransactionCallback) transactionStatus -> {
+				historyEventDao.deleteHistoryEventById(eventId);
+				historyBriefDao.deleteHistoryBriefById(id);
+				return null;
+			});
 		} catch (Exception e) {
 			log.error("删除历史简介失败", e.getMessage());
 			return null;
@@ -135,10 +139,15 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 	}
 
 	@Override
-	public HistoryBriefInfoResponse updateHistoryBriefInfoById(HistoryBriefInfoRequest historyBriefInfoRequest) {
+	public HistoryBriefInfoResponse updateHistoryBriefInfoById(HistoryBriefInfoRequest historyBriefInfoRequest,
+			HistoryEventInfoRequest historyEventInfoRequest) {
 		HistoryBriefInfoResponse historyBriefInfoResponse = new HistoryBriefInfoResponse();
 		try {
-			historyBriefDao.updateHistoryBriefInfo(historyBriefInfoRequest);
+			transactionTemplate.execute((TransactionCallback) transactionStatus -> {
+				historyEventDao.updateHistoryEventInfo(historyEventInfoRequest);
+				historyBriefDao.updateHistoryBriefInfo(historyBriefInfoRequest);
+				return null;
+			});
 		} catch (Exception e) {
 			log.error("更新历史简介失败", e.getMessage());
 			return null;

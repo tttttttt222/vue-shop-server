@@ -1,5 +1,6 @@
 package com.vueshop.manager.controller;
 
+import com.vueshop.manager.controller.http.request.CategoriesInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefEventInfoAddRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
@@ -13,9 +14,11 @@ import com.vueshop.manager.service.HistoryBriefService;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -75,67 +78,67 @@ public class HistoryBriefController {
 	}
 
 
-    @GetMapping("historyBriefEvent/{id}")
-    @ResponseBody
-    public HttpResponse<HistoryEventInfoResponse> queryHistoryBriefDetialById(HttpServletRequest request, @PathVariable long id) {
-        HttpResponse<HistoryEventInfoResponse> httpResponse = new HttpResponse<>(new Meta());
+	@GetMapping("historyBriefEvent/{id}")
+	@ResponseBody
+	public HttpResponse<HistoryEventInfoResponse> queryHistoryBriefDetialById(HttpServletRequest request,
+			@PathVariable long id) {
+		HttpResponse<HistoryEventInfoResponse> httpResponse = new HttpResponse<>(new Meta());
 
-		HistoryEventInfoResponse historyEventInfoResponse=historyBriefService.queryHistoryBriefDetialById(id);
+		HistoryEventInfoResponse historyEventInfoResponse = historyBriefService.queryHistoryBriefDetialById(id);
 
-        if (historyEventInfoResponse == null) {
-            httpResponse.getMeta().setMsg("查询失败");
-            httpResponse.getMeta().setStatus(400);
-            return httpResponse;
-        }
+		if (historyEventInfoResponse == null) {
+			httpResponse.getMeta().setMsg("查询失败");
+			httpResponse.getMeta().setStatus(400);
+			return httpResponse;
+		}
 
-        httpResponse.setData(historyEventInfoResponse);
-        httpResponse.getMeta().setMsg("查询成功");
-        httpResponse.getMeta().setStatus(200);
-        return httpResponse;
-    }
-//
-//
-//    @PutMapping("categories/{id}")
-//    @ResponseBody
-//    public HttpResponse<CategoriesInfoResponse> updateCategoriesInfoById(HttpServletRequest request,
-//                                                                         @PathVariable long id,
-//                                                                         @RequestBody CategoriesInfoRequest CategoriesInfoRequest) {
-//        HttpResponse<CategoriesInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-//
-//        CategoriesInfoRequest.setCat_id(id);
-//        CategoriesInfoResponse categoriesInfoResponse = categoriesService
-//                .updateCategoriesInfoById(CategoriesInfoRequest);
-//
-//        if (categoriesInfoResponse == null) {
-//            httpResponse.getMeta().setMsg("更新失败");
-//            httpResponse.getMeta().setStatus(400);
-//            return httpResponse;
-//        }
-//
-//        httpResponse.setData(categoriesInfoResponse);
-//        httpResponse.getMeta().setMsg("更新成功");
-//        httpResponse.getMeta().setStatus(200);
-//        return httpResponse;
-//    }
-//
-//    @DeleteMapping("categories/{id}")
-//    @ResponseBody
-//    public HttpResponse<CategoriesInfoResponse> deleteCategoriesById(HttpServletRequest request,
-//                                                                     @PathVariable long id) {
-//        HttpResponse<CategoriesInfoResponse> httpResponse = new HttpResponse<>(new Meta());
-//
-//        CategoriesInfoResponse categoriesInfoResponse = categoriesService.deleteCategoriesById(id);
-//
-//        if (categoriesInfoResponse == null) {
-//            httpResponse.getMeta().setMsg("删除失败");
-//            httpResponse.getMeta().setStatus(400);
-//            return httpResponse;
-//        }
-//
-//        httpResponse.setData(categoriesInfoResponse);
-//        httpResponse.getMeta().setMsg("删除成功");
-//        httpResponse.getMeta().setStatus(200);
-//        return httpResponse;
-//    }
+		httpResponse.setData(historyEventInfoResponse);
+		httpResponse.getMeta().setMsg("查询成功");
+		httpResponse.getMeta().setStatus(200);
+		return httpResponse;
+	}
+
+
+	@PostMapping("historyBrief/update")
+	@ResponseBody
+	public HttpResponse<HistoryBriefInfoResponse> updateCategoriesInfoById(HttpServletRequest request,
+			@RequestBody HistoryBriefEventInfoAddRequest addRequest) {
+		HttpResponse<HistoryBriefInfoResponse> httpResponse = new HttpResponse<>(new Meta());
+
+
+		HistoryBriefInfoResponse historyBriefInfoResponse = historyBriefService
+				.updateHistoryBriefInfoById(addRequest.getHistoryBrief(), addRequest.getHistoryEvent());
+
+		if (historyBriefInfoResponse == null) {
+			httpResponse.getMeta().setMsg("更新失败");
+			httpResponse.getMeta().setStatus(400);
+			return httpResponse;
+		}
+
+		httpResponse.setData(historyBriefInfoResponse);
+		httpResponse.getMeta().setMsg("更新成功");
+		httpResponse.getMeta().setStatus(200);
+		return httpResponse;
+	}
+
+	@PostMapping("historyBrief/delete/{id}/{eventId}")
+	@ResponseBody
+	public HttpResponse<HistoryBriefInfoResponse> deleteCategoriesById(HttpServletRequest request,
+			@PathVariable long id, @PathVariable long eventId) {
+		HttpResponse<HistoryBriefInfoResponse> httpResponse = new HttpResponse<>(new Meta());
+
+		HistoryBriefInfoResponse historyBriefInfoResponse = historyBriefService.deleteHistoryBriefById(id, eventId);
+
+		if (historyBriefInfoResponse == null) {
+			httpResponse.getMeta().setMsg("删除失败");
+			httpResponse.getMeta().setStatus(400);
+			return httpResponse;
+		}
+
+		httpResponse.setData(historyBriefInfoResponse);
+		httpResponse.getMeta().setMsg("删除成功");
+		httpResponse.getMeta().setStatus(200);
+		return httpResponse;
+	}
 
 }

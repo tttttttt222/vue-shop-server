@@ -19,9 +19,10 @@ public interface HistoryBriefService {
 	HistoryBriefInfoResponse insertHistoryBrief(HistoryBriefInfoRequest historyBriefInfoRequest,
 			HistoryEventInfoRequest historyEventInfoRequest);
 
-	HistoryBriefInfoResponse deleteHistoryBriefById(Long id);
+	HistoryBriefInfoResponse deleteHistoryBriefById(Long id, Long eventId);
 
-	HistoryBriefInfoResponse updateHistoryBriefInfoById(HistoryBriefInfoRequest historyBriefInfoRequest);
+	HistoryBriefInfoResponse updateHistoryBriefInfoById(HistoryBriefInfoRequest historyBriefInfoRequest,
+			HistoryEventInfoRequest historyEventInfoRequest);
 
 	HistoryEventInfoResponse queryHistoryBriefDetialById(Long id);
 }

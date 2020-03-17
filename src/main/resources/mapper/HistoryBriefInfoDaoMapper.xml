@@ -160,37 +160,37 @@
         UPDATE history_brief
         <set>
             <if test=" historyBriefInfo.year != null">
-                year =#{historyBriefInfo.year}
+                year =#{historyBriefInfo.year},
             </if>
             <if test=" historyBriefInfo.month != null">
-                month =#{historyBriefInfo.month}
+                month =#{historyBriefInfo.month},
             </if>
             <if test=" historyBriefInfo.date != null">
-                date =#{historyBriefInfo.date}
+                date =#{historyBriefInfo.date},
             </if>
             <if test=" historyBriefInfo.continent != null">
-                continent =#{historyBriefInfo.continent}
+                continent =#{historyBriefInfo.continent},
             </if>
             <if test=" historyBriefInfo.contry != null and historyBriefInfo.contry != ''">
-                contry =#{historyBriefInfo.contry}
+                contry =#{historyBriefInfo.contry},
             </if>
             <if test=" historyBriefInfo.city != null and historyBriefInfo.city != ''">
-                city =#{historyBriefInfo.city}
+                city =#{historyBriefInfo.city},
             </if>
             <if test=" historyBriefInfo.mainPerson != null and historyBriefInfo.mainPerson != ''">
-                main_person =#{historyBriefInfo.mainPerson}
+                main_person =#{historyBriefInfo.mainPerson},
             </if>
             <if test=" historyBriefInfo.period != null and historyBriefInfo.period != ''">
-                period =#{historyBriefInfo.period}
+                period =#{historyBriefInfo.period},
             </if>
             <if test=" historyBriefInfo.eventName != null and historyBriefInfo.eventName != ''">
-                event_name =#{historyBriefInfo.eventName}
+                event_name =#{historyBriefInfo.eventName},
             </if>
             <if test=" historyBriefInfo.eventId != null">
-                event_id =#{historyBriefInfo.eventId}
+                event_id =#{historyBriefInfo.eventId},
             </if>
             <if test=" historyBriefInfo.display != null">
-                display =#{historyBriefInfo.display}
+                display =#{historyBriefInfo.display},
             </if>
             update_time = now()
         </set>

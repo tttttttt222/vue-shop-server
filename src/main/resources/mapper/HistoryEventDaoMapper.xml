@@ -61,25 +61,25 @@
         UPDATE history_brief_event
         <set>
             <if test=" historyEvent.id != null">
-                id =#{historyEvent.id}
+                id =#{historyEvent.id},
             </if>
             <if test=" historyEvent.eventTitle != null and historyEvent.eventTitle != ''">
-                event_title =#{historyEvent.eventTitle}
+                event_title =#{historyEvent.eventTitle},
             </if>
             <if test=" historyEvent.eventBrief != null and historyEvent.eventBrief != ''">
-                event_brief =#{historyEvent.eventBrief}
+                event_brief =#{historyEvent.eventBrief},
             </if>
             <if test=" historyEvent.eventContennt != null and historyEvent.eventContennt != ''">
-                event_contennt =#{historyEvent.eventContennt}
+                event_contennt =#{historyEvent.eventContennt},
             </if>
             <if test=" historyEvent.eventCateIds != null and historyEvent.eventCateIds != ''">
-                event_cate_ids =#{historyEvent.eventCateIds}
+                event_cate_ids =#{historyEvent.eventCateIds},
             </if>
             <if test=" historyEvent.createTime != null">
-                create_time =#{historyEvent.createTime}
+                create_time =#{historyEvent.createTime},
             </if>
             <if test=" historyEvent.updateTime != null">
-                update_time =#{historyEvent.updateTime}
+                update_time =#{historyEvent.updateTime},
             </if>
             update_time = now()
         </set>
