@@ -4,6 +4,7 @@ import com.vueshop.manager.controller.http.request.HistoryBriefInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.controller.http.request.HistoryEventInfoRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
+import com.vueshop.manager.controller.http.response.HistoryBriefInfoNewQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
 import com.vueshop.manager.controller.http.response.HistoryEventInfoResponse;
@@ -25,4 +26,6 @@ public interface HistoryBriefService {
 			HistoryEventInfoRequest historyEventInfoRequest);
 
 	HistoryEventInfoResponse queryHistoryBriefDetialById(Long id);
+
+	HistoryBriefInfoNewQueryResponse queryHistoryBriefPageNew(PageRequest<HistoryBriefQueryRequest> pageRequest);
 }

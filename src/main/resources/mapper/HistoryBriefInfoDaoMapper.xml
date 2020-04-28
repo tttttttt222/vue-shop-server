@@ -77,6 +77,44 @@
         </if>
     </select>
 
+    <select id="queryHistoryBriefNewPage" resultMap="HistoryBriefInfoMap">
+        SELECT
+        event_brief,
+        <include refid="allColumn"/>
+        FROM history_brief hb LEFT JOIN history_brief_event hbe ON hb.event_id = hbe.id
+        <where>
+            <if test=" query.year != null">
+                AND `year` =#{query.year}
+            </if>
+            <if test=" query.month != null">
+                AND `month` =#{query.month}
+            </if>
+            <if test=" query.date != null">
+                AND `date` =#{query.date}
+            </if>
+            <if test=" query.continent != null">
+                AND continent =#{query.continent}
+            </if>
+            <if test=" query.contry != null and query.contry != ''">
+                AND contry =#{query.contry}
+            </if>
+            <if test=" query.city != null and query.city != ''">
+                AND city =#{query.city}
+            </if>
+            <if test=" query.yearStart != null">
+                AND `year` &gt;= #{query.yearStart}
+            </if>
+            <if test=" query.yearEnd != null">
+                AND `year` &lt;= #{query.yearEnd}
+            </if>
+            AND display = 1
+        </where>
+        ORDER BY create_time DESC
+        <if test=" pageNo != null">
+            LIMIT #{pageNo} , #{pageSize}
+        </if>
+    </select>
+
     <select id="queryHistoryBriefPageCount" resultType="java.lang.Integer">
         SELECT
         count(1)

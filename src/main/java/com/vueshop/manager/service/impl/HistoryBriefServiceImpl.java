@@ -6,6 +6,7 @@ import com.vueshop.manager.controller.http.request.HistoryEventInfoRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
 import com.vueshop.manager.controller.http.response.HistoryBriefContinentResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoColletResponse;
+import com.vueshop.manager.controller.http.response.HistoryBriefInfoNewQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
 import com.vueshop.manager.controller.http.response.HistoryEventInfoResponse;
@@ -162,6 +163,21 @@ public class HistoryBriefServiceImpl implements HistoryBriefService {
 		HistoryBriefEventInfo historyBriefEventInfo = historyEventDao.queryHistoryEventById(id);
 		BeanUtils.copyProperties(historyBriefEventInfo, historyEventInfoResponse);
 		return historyEventInfoResponse;
+	}
+
+	@Override
+	public HistoryBriefInfoNewQueryResponse queryHistoryBriefPageNew(
+			PageRequest<HistoryBriefQueryRequest> pageRequest) {
+		HistoryBriefInfoNewQueryResponse res = new HistoryBriefInfoNewQueryResponse();
+
+		List<HistoryBriefInfo> historyBriefInfos = historyBriefDao
+				.queryHistoryBriefNewPage(pageRequest.getQuery(), pageRequest.getPagestart(), pageRequest.getPagesize());
+		Integer count = historyBriefDao.queryHistoryBriefPageCount(pageRequest.getQuery());
+
+		res.setTotal(count);
+		res.setPagenum(pageRequest.getPagenum());
+		res.setList(historyBriefInfos);
+		return res;
 	}
 
 }

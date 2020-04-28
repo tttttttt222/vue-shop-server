@@ -24,4 +24,6 @@ public interface HistoryBriefDao {
 
 	void updateHistoryBriefInfo(@Param("historyBriefInfo") HistoryBriefInfoRequest historyBriefInfoRequest);
 
+	List<HistoryBriefInfo> queryHistoryBriefNewPage(@Param("query") HistoryBriefQueryRequest historyBriefQueryRequest,
+			@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
 }

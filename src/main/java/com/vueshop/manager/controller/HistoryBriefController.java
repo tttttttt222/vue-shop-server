@@ -1,10 +1,9 @@
 package com.vueshop.manager.controller;
 
-import com.vueshop.manager.controller.http.request.CategoriesInfoRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefEventInfoAddRequest;
 import com.vueshop.manager.controller.http.request.HistoryBriefQueryRequest;
 import com.vueshop.manager.controller.http.request.base.PageRequest;
-import com.vueshop.manager.controller.http.response.CategoriesInfoResponse;
+import com.vueshop.manager.controller.http.response.HistoryBriefInfoNewQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoQueryResponse;
 import com.vueshop.manager.controller.http.response.HistoryBriefInfoResponse;
 import com.vueshop.manager.controller.http.response.HistoryEventInfoResponse;
@@ -14,11 +13,9 @@ import com.vueshop.manager.service.HistoryBriefService;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +46,23 @@ public class HistoryBriefController {
 				.queryHistoryBriefPage(pageRequest);
 		httpResponse.setData(historyBriefInfoQueryResponse);
 		httpResponse.getMeta().setMsg("获取历史简介列表成功");
+		httpResponse.getMeta().setStatus(200);
+		return httpResponse;
+	}
+
+	@PostMapping("historyBrief/queryNew")
+	@ResponseBody
+	public HttpResponse<HistoryBriefInfoNewQueryResponse> queryHistoryNewBriefPage(HttpServletRequest request,
+			@RequestBody HistoryBriefQueryRequest historyBriefQueryRequest) {
+		HttpResponse<HistoryBriefInfoNewQueryResponse> httpResponse = new HttpResponse<>(new Meta());
+
+		PageRequest<HistoryBriefQueryRequest> pageRequest = new PageRequest<>(historyBriefQueryRequest.getPagenum(),
+				historyBriefQueryRequest.getPagesize());
+		pageRequest.setQuery(historyBriefQueryRequest);
+
+		HistoryBriefInfoNewQueryResponse res = historyBriefService.queryHistoryBriefPageNew(pageRequest);
+		httpResponse.setData(res);
+		httpResponse.getMeta().setMsg("获取新简介列表成功");
 		httpResponse.getMeta().setStatus(200);
 		return httpResponse;
 	}
